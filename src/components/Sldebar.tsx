@@ -28,6 +28,7 @@ const navigation = [
 export function Sidebar() {
   const pathname = usePathname();
 
+  console.log(pathname);
   return (
     <div className='flex h-full min-h-screen w-64 fixed top-0 left-0 flex-col bg-[#002B5B] text-white'>
       <div className='p-4'>
@@ -46,8 +47,10 @@ export function Sidebar() {
             key={item.name}
             href={item.href}
             className={`group flex items-center rounded-lg px-3 py-2 text-lg text-[#FFFFFF] font-medium ${
-              item.href === pathname ? "bg-[#FFFFFF] text-[#000000]" : ""
-            } hover:bg-blue-900`}
+              item.href == pathname
+                ? "bg-[#FFFFFF] hover:bg-[#FFFFFF] text-black hover:text-black"
+                : ""
+            } hover:bg-blue-900 hover:text-white`}
           >
             <item.icon className='mr-3 h-5 w-5' />
             {item.name}
