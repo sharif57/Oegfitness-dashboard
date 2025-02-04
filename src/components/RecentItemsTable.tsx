@@ -7,11 +7,13 @@ interface RecentItem {
   amount: string;
   status: string;
 }
+
 interface RecentItemsTableProps {
   items: RecentItem[];
+  showModal: void;
 }
 
-export function RecentItemsTable({ items }: RecentItemsTableProps) {
+export function RecentItemsTable({ items, showModal }: RecentItemsTableProps) {
   return (
     <div className='overflow-x-auto'>
       <table className='min-w-full divide-y divide-gray-200'>
@@ -60,7 +62,7 @@ export function RecentItemsTable({ items }: RecentItemsTableProps) {
               <td className='whitespace-nowrap px-3 py-4 text-xs lg:px-4 lg:text-sm'>
                 <button className='rounded-full p-1 hover:bg-gray-100'>
                   <span className='sr-only'>View details</span>
-                  <Info />
+                  <Info onClick={showModal} />
                 </button>
               </td>
             </tr>

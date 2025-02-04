@@ -1,5 +1,9 @@
+"use client";
+
 import { ArrowLeft } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const features = [
   "View Members Directory",
@@ -25,11 +29,16 @@ const plans = [
 ];
 
 export default function SubscriptionPage() {
+  const router = useRouter();
+
   return (
     <div className='bg-[#FFFFFF]'>
       {/* Back Button */}
       <div className='mb-8'>
-        <button className='lg:ml-10 inline-flex items-center rounded-lg bg-navy-600 px-4 py-2 text-sm text-black bg-slate-300 transition-colors hover:bg-navy-700'>
+        <button
+          onClick={() => router.back()}
+          className='lg:ml-10 inline-flex items-center rounded-lg bg-navy-600 px-4 py-2 text-sm text-black bg-slate-300 transition-colors hover:bg-navy-700'
+        >
           <ArrowLeft className='mr-2 h-4 w-4' />
           Back
         </button>
@@ -81,11 +90,11 @@ export default function SubscriptionPage() {
             </div>
 
             {/* Edit Button */}
-            <div className='px-5'>
-              <button className='w-full rounded-lg bg-navy-600 py-3 px-5 text-center font-medium bg-[#01336F] text-white transition-colors hover:bg-navy-700'>
+            <Link href={"/edit-subscription"}>
+              <div className='w-[94%] border-4 rounded-lg bg-navy-600 py-4 mx-auto text-center font-medium bg-[#01336F] text-white transition-colors hover:bg-navy-700'>
                 Edit
-              </button>
-            </div>
+              </div>
+            </Link>
           </div>
         ))}
       </div>
