@@ -213,7 +213,10 @@ const Earnings = () => {
                               </span>
                             </td>
                             <td className='whitespace-nowrap px-3 py-4 text-xs lg:px-4 lg:text-sm'>
-                              <button className='rounded-full p-1 hover:bg-gray-100'>
+                              <button
+                                title='Click to view user details'
+                                className='rounded-full p-1 hover:bg-gray-100'
+                              >
                                 <span className='sr-only'>View details</span>
                                 <Info onClick={() => showModal(item)} />
                               </button>

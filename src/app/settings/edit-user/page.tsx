@@ -3,13 +3,15 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { ArrowLeft, Camera } from "lucide-react";
+import { ArrowLeft, Camera, Eye, EyeOff } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export default function ProfilePage() {
   const [showPassword, setShowPassword] = useState(false);
   const [showEmailPassword, setShowEmailPassword] = useState(false);
   const [showPhonePassword, setShowPhonePassword] = useState(false);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const router = useRouter();
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -22,22 +24,29 @@ export default function ProfilePage() {
     }
   };
 
+  const goBack = () => {
+    router.back();
+  };
+
   return (
     <div className='min-h-screen bg-white'>
       <div className='max-w-[96%] mx-auto p-4'>
         {/* Header */}
         <div className='flex items-center justify-between mb-8'>
           <div className='flex items-center gap-2'>
-            <Link href='/' className='text-gray-600 hover:text-gray-900'>
+            <button
+              onClick={goBack}
+              className='text-gray-600 hover:text-gray-900'
+            >
               <ArrowLeft className='w-5 h-5' />
-            </Link>
+            </button>
             <h1 className='text-xl font-semibold'>Overview</h1>
           </div>
         </div>
 
-        <div className='grid grid-cols-5 gap-10'>
+        <div className='flex gap-10'>
           {/* Profile Section */}
-          <div className='mb-8 p-6 border border-[#01336F] rounded-lg'>
+          <div className='w-[300px] p-6 border border-[#01336F] rounded-lg'>
             <div className='flex flex-col items-center'>
               {/* <div className='relative mb-4'>
                 <div className='w-[148px] h-[156px] rounded-full border-[5px] border-[#01336F] overflow-hidden relative'>
@@ -89,77 +98,58 @@ export default function ProfilePage() {
             </div>
           </div>
 
-          {/* Form */}
-          <div className='col-span-3 space-y-6'>
-            {/* Name Field */}
-            <div className='space-y-2'>
-              <label className='block text-2xl font-medium text-[#1A1918]'>
-                Name
-              </label>
-              <div className='relative'>
-                <input
-                  type={showPassword ? "text" : "password"}
-                  className='w-full px-4 py-2 placeholder:text-[#737163] border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'
-                  placeholder='Enter Password'
-                />
-                {/* <button
-                  onClick={() => setShowPassword(!showPassword)}
-                  className='absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700'
-                >
-                  {showPassword ? (
-                    <EyeOff className='w-5 h-5' />
-                  ) : (
-                    <Eye className='w-5 h-5' />
-                  )}
-                </button> */}
-              </div>
-            </div>
-
-            {/* Email Field */}
-            <div className='space-y-2'>
-              <label className='block text-2xl font-medium text-[#1A1918]'>
-                Email
-              </label>
-              <div className='relative'>
-                <input
-                  type={showEmailPassword ? "text" : "password"}
-                  className='w-full px-4 py-2 placeholder:text-[#737163] border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'
-                  placeholder='Enter Password'
-                />
-                {/* <button
-                  onClick={() => setShowEmailPassword(!showEmailPassword)}
-                  className='absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700'
-                >
-                  {showEmailPassword ? (
-                    <EyeOff className='w-5 h-5' />
-                  ) : (
-                    <Eye className='w-5 h-5' />
-                  )}
-                </button> */}
-              </div>
-            </div>
-
-            {/* Phone Number Field */}
-            <div className='space-y-2'>
-              <label className='block text-2xl font-medium text-[#1A1918]'>
-                Phone Number
-              </label>
-              <div className='relative flex'>
-                <div className='flex-shrink-0'>
-                  <select className='h-full px-3 py-2 placeholder:text-[#737163] border border-r-0 border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50 text-sm'>
-                    <option>+76</option>
-                    <option>+435</option>
-                    <option>+543</option>
-                    <option>+55</option>
-                  </select>
-                </div>
-                <div className='flex-grow relative'>
+          <div className='flex-1'>
+            {/* Form */}
+            <form className='w-full space-y-6'>
+              {/* Name Field */}
+              <div className='space-y-2'>
+                <label className='block text-2xl font-medium text-[#1A1918]'>
+                  Name
+                </label>
+                <div className='relative'>
                   <input
-                    type={showPhonePassword ? "text" : "password"}
-                    className='w-full px-4 py-2 border border-gray-300 rounded-r-md focus:outline-none focus:ring-2 focus:ring-blue-500'
-                    placeholder='Enter Password'
+                    type={"text"}
+                    className='w-full px-4 py-2 text-lg placeholder:text-[#737163] border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'
+                    placeholder='Enter Name'
                   />
-                  {/* <button
+                </div>
+              </div>
+
+              {/* Email Field */}
+              <div className='space-y-2'>
+                <label className='block text-2xl font-medium text-[#1A1918]'>
+                  Email
+                </label>
+                <div className='relative'>
+                  <input
+                    type={"email"}
+                    className='w-full px-4 py-2 text-lg placeholder:text-[#737163] border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'
+                    placeholder='Enter email'
+                  />
+                </div>
+              </div>
+
+              {/* Phone Number Field */}
+              <div className='space-y-2'>
+                <label className='block text-2xl font-medium text-[#1A1918]'>
+                  Phone Number
+                </label>
+                <div className='relative flex'>
+                  <div className='flex-shrink-0'>
+                    <select className='h-full px-3 py-2 placeholder:text-[#737163] border border-r-0 border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50 text-sm'>
+                      <option>+76</option>
+                      <option>+435</option>
+                      <option>+543</option>
+                      <option>+55</option>
+                    </select>
+                  </div>
+                  <div className='flex-grow relative'>
+                    <input
+                      type={"text"}
+                      className='w-full px-4 py-2 border border-gray-300 rounded-r-md focus:outline-none focus:ring-2 focus:ring-blue-500'
+                      placeholder='Enter phone'
+                    />
+                    {/* <button
                     onClick={() => setShowPhonePassword(!showPhonePassword)}
                     className='absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700'
                   >
@@ -169,15 +159,18 @@ export default function ProfilePage() {
                       <Eye className='w-5 h-5' />
                     )}
                   </button> */}
+                  </div>
                 </div>
               </div>
-            </div>
-
-            {/* save button */}
-            <button className='ml-auto px-4 py-2 bg-blue-900 text-white rounded-md text-sm hover:bg-blue-800 transition-colors'>
-              Save Changes
-            </button>
+            </form>
           </div>
+        </div>
+
+        <div className='flex items-end justify-end mt-5'>
+          {/* save button */}
+          <button className='ml-auto px-4 py-2 bg-[#01336F] text-[#FFFFFF] rounded-md text-sm hover:bg-[#01326fe1] transition-colors'>
+            Save Changes
+          </button>
         </div>
       </div>
     </div>

@@ -5,6 +5,7 @@ import { Pagination } from "antd";
 import { InfoIcon } from "lucide-react";
 import "antd/dist/reset.css";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 interface Appointment {
   id: number;
@@ -32,9 +33,14 @@ export default function AppointmentDashboard() {
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = appointments.slice(indexOfFirstItem, indexOfLastItem);
+  const router = useRouter();
+
+  const goBack = () => {
+    router.back();
+  };
 
   return (
-    <div className='min-h-screen bg-gray-50 p-4 md:p-8'>
+    <div className='min-h-screen bg-[#FFFFFF] p-4 md:p-8'>
       <div className='mx-auto max-w-[94%]'>
         {/* Header */}
         <div className='mb-6 flex flex-col space-y-4  sm:space-y-0'>
@@ -67,18 +73,18 @@ export default function AppointmentDashboard() {
           {currentItems.map((appointment) => (
             <div
               key={appointment.id}
-              className='overflow-hidden rounded-lg bg-white shadow-md'
+              className='overflow-hidden rounded-lg bg-[#FFFFFF] shadow-lg p-5'
             >
-              <div className='relative h-[328px]'>
+              <div className='w-full relative h-[328px]'>
                 <Image
                   src={appointment.image || "/placeholder.svg"}
                   width={600}
                   height={700}
                   alt={appointment.title}
-                  className='h-[328px] w-full object-contain'
+                  className='h-[328px] w-full object-cover'
                 />
               </div>
-              <div className='p-4'>
+              <div className=''>
                 <div className='flex items-start justify-between'>
                   <h3 className='flex-1 mb-2 text-2xl font-medium text-[#000000]'>
                     {appointment.title}
