@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Pagination } from "antd";
 import WorkoutCard from "@/components/WorkoutCard";
 import { Plus } from "lucide-react";
+import Link from "next/link";
 
 interface WorkoutItem {
   id: number;
@@ -34,9 +35,11 @@ export default function WorkoutPlan() {
     <div className='container mx-auto p-4 md:p-6'>
       <div className='mb-6 flex items-center justify-between'>
         <h2 className='text-2xl font-semibold text-[#000000]'>Workout Plan</h2>
-        <button className='flex items-center justify-center px-5 py-3 text-white bg-[#01336F] rounded gap-1.5'>
-          <Plus /> Add Workout
-        </button>
+        <Link href={"/workout/add-workout"}>
+          <button className='flex items-center justify-center px-5 py-3 text-white bg-[#01336F] rounded gap-1.5'>
+            <Plus /> Add Workout
+          </button>
+        </Link>
       </div>
 
       <div className='grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3'>

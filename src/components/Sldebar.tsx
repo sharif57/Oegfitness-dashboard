@@ -11,6 +11,7 @@ import {
   Users,
   CreditCard,
   Settings,
+  LogOut,
 } from "lucide-react";
 import { usePathname } from "next/navigation";
 
@@ -60,7 +61,7 @@ export function Sidebar() {
 
       <div className='p-4'>
         <button className='w-full rounded-lg bg-[#BF0C0A] px-4 py-2 text-sm font-medium hover:bg-red-700'>
-          Create Account
+          <LogOut /> Logout
         </button>
       </div>
     </div>
