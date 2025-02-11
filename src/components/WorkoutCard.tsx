@@ -49,7 +49,7 @@ export default function WorkoutCard({ workout }: WorkoutCardProps) {
   }, [open]);
   return (
     <div className='rounded-xl shadow-md p-6'>
-      <div className='mt-1.5 mb-3 rounded-xl'>
+      <div className='mt-1.5 mb-3 rounded-xl h-[600px]'>
         <Image
           src={workout.imageUrl}
           className='rounded-xl'

@@ -46,10 +46,12 @@ const recentItems: RecentItem[] = [
 ];
 
 interface ICurrentUser {
-  id: string;
-  userName: string;
-  date: string;
-  amount: string;
+  _id: string;
+  name: string;
+  createdAt: string;
+  email: string;
+  role: string;
+  verified: boolean;
   status: string;
 }
 
@@ -61,7 +63,7 @@ const Earnings = () => {
 
   const { data: users, isLoading, isError } = useGetAllUsersQuery();
 
-  console.log({ users });
+  console.log(users?.data?.result);
 
   const showModal = (item?: ICurrentUser | null) => {
     setOpen(true);
@@ -83,13 +85,15 @@ const Earnings = () => {
     setOpen(false);
   };
 
+  console.log(currentUser);
+
   return (
     <>
       {/* modal for user info */}
       <>
-        <Button type='primary' onClick={() => showModal(null)}>
+        {/* <Button type='primary' onClick={() => showModal(null)}>
           Open Modal with async logic
-        </Button>
+        </Button> */}
         <Modal
           // title='Title'
           open={open}
@@ -106,15 +110,17 @@ const Earnings = () => {
             <div className='flex flex-col space-y-4'>
               <div className='flex items-center justify-between border-b pb-2'>
                 <p className='text-lg font-medium text-[#1A1918]'>User ID: </p>
-                <p className='text-lg text-[#737163]'> #3432</p>
+                <p className='text-lg text-[#737163]'> {currentUser?._id}</p>
               </div>
               <div className='flex items-center justify-between border-b pb-2'>
                 <p className='text-lg font-medium text-[#1A1918]'>Date </p>
-                <p className='text-lg text-[#737163]'> 01-24-2024</p>
+                <p className='text-lg text-[#737163]'>
+                  {currentUser?.createdAt.split("T")[0]}
+                </p>
               </div>
               <div className='flex items-center justify-between border-b pb-2'>
                 <p className='text-lg font-medium text-[#1A1918]'>User Name </p>
-                <p className='text-lg text-[#737163]'> Enrique</p>
+                <p className='text-lg text-[#737163]'> {currentUser?.name}</p>
               </div>
               <div className='flex items-center justify-between border-b pb-2'>
                 <p className='text-lg font-medium text-[#1A1918]'>
@@ -175,57 +181,68 @@ const Earnings = () => {
                     <table className='min-w-full divide-y divide-gray-200'>
                       <thead className='bg-[#002B5B] text-white'>
                         <tr>
-                          <th className='px-3 py-3 text-left text-xs text-[#FFFFFF] font-medium lg:px-4 lg:text-lg'>
-                            User Name
+                          <th className='px-3 py-3 text-left text-lg text-[#FFFFFF] font-medium lg:px-4 lg:text-lg'>
+                            Name
                           </th>
-                          <th className='px-3 py-3 text-left text-xs text-[#FFFFFF] font-medium lg:px-4 lg:text-lg'>
-                            Date
+                          <th className='px-3 py-3 text-left text-lg text-[#FFFFFF] font-medium lg:px-4 lg:text-lg'>
+                            Email
                           </th>
-                          <th className='px-3 py-3 text-left text-xs text-[#FFFFFF] font-medium lg:px-4 lg:text-lg'>
-                            Amount
+                          <th className='px-3 py-3 text-left text-lg text-[#FFFFFF] font-medium lg:px-4 lg:text-lg'>
+                            Role
                           </th>
-                          <th className='px-3 py-3 text-left text-xs text-[#FFFFFF] font-medium lg:px-4 lg:text-lg'>
+                          <th className='px-3 py-3 text-left text-lg text-[#FFFFFF] font-medium lg:px-4 lg:text-lg'>
                             Status
                           </th>
-                          <th className='px-3 py-3 text-left text-xs text-[#FFFFFF] font-medium lg:px-4 lg:text-lg'>
+                          <th className='px-3 py-3 text-left text-lg text-[#FFFFFF] font-medium lg:px-4 lg:text-lg'>
                             Action
                           </th>
                         </tr>
                       </thead>
                       <tbody className='divide-y divide-gray-200 bg-white'>
-                        {recentItems.map((item) => (
-                          <tr key={item.id}>
-                            <td className='whitespace-nowrap px-3 py-4 text-xs lg:px-4 lg:text-lg text-[#1A1918]'>
-                              {item.userName}
-                            </td>
-                            <td className='whitespace-nowrap px-3 py-4 text-xs lg:px-4 lg:text-lg text-[#1A1918]'>
-                              {item.date}
-                            </td>
-                            <td className='whitespace-nowrap px-3 py-4 text-xs lg:px-4 lg:text-lg text-[#1A1918]'>
-                              {item.amount}
-                            </td>
-                            <td className='whitespace-nowrap px-3 py-4 text-xs lg:px-4 lg:text-lg text-[#1A1918]'>
-                              <span
-                                className={`inline-flex rounded-full px-2 py-1 text-xs font-semibold ${
-                                  item.status === "Completed"
-                                    ? "bg-green-100 text-green-800"
-                                    : "bg-red-400 text-white"
-                                }`}
-                              >
-                                {item.status}
-                              </span>
-                            </td>
-                            <td className='whitespace-nowrap px-3 py-4 text-xs lg:px-4 lg:text-sm'>
-                              <button
-                                title='Click to view user details'
-                                className='rounded-full p-1 hover:bg-gray-100'
-                              >
-                                <span className='sr-only'>View details</span>
-                                <Info onClick={() => showModal(item)} />
-                              </button>
-                            </td>
-                          </tr>
-                        ))}
+                        {users?.data?.result.map(
+                          (user: {
+                            _id: string;
+                            name: string;
+                            email: string;
+                            role: string;
+                            verified: boolean;
+                            status: string;
+                          }) => (
+                            <tr key={user._id}>
+                              <td className='whitespace-nowrap px-3 py-4 text-lg lg:px-4 lg:text-lg text-[#1A1918]'>
+                                {user.name}
+                              </td>
+                              <td className='whitespace-nowrap px-3 py-4 text-lg lg:px-4 lg:text-lg text-[#1A1918]'>
+                                {user.email}
+                              </td>
+                              <td className='whitespace-nowrap px-3 py-4 text-lg lg:px-4 lg:text-lg text-[#1A1918]'>
+                                {user.role}
+                              </td>
+                              <td className='whitespace-nowrap px-3 py-4 text-lg lg:px-4 lg:text-lg text-[#1A1918]'>
+                                <span
+                                  className={`inline-flex rounded-full px-2 py-1 text-xs font-semibold ${
+                                    user.verified === true
+                                      ? "bg-green-100 text-green-800"
+                                      : "bg-red-400 text-white"
+                                  }`}
+                                >
+                                  {user.verified === true
+                                    ? "Verified"
+                                    : "Not Verified"}
+                                </span>
+                              </td>
+                              <td className='whitespace-nowrap px-3 py-4 text-xs lg:px-4 lg:text-sm'>
+                                <button
+                                  title='Click to view user details'
+                                  className='rounded-full p-1 hover:bg-gray-100'
+                                >
+                                  <span className='sr-only'>View details</span>
+                                  <Info onClick={() => showModal(user)} />
+                                </button>
+                              </td>
+                            </tr>
+                          )
+                        )}
                       </tbody>
                     </table>
                   </div>

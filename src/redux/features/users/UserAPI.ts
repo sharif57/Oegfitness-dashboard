@@ -1,12 +1,14 @@
 import baseAPI from "@/redux/api/baseAPI";
 
-
 const UserAPI = baseAPI.injectEndpoints({
   endpoints: (builder) => ({
     getAllUsers: builder.query<any, void>({
       query: () => ({
         url: "/user/all-user",
         method: "GET",
+        // headers: {
+        //   Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        // },
       }),
       providesTags: ["Users"],
     }),
@@ -15,6 +17,9 @@ const UserAPI = baseAPI.injectEndpoints({
       query: (id) => ({
         url: `/users/${id}`,
         method: "GET",
+        // headers: {
+        //   Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        // },
       }),
       providesTags: ["Users"],
     }),
