@@ -5,6 +5,7 @@ import { Pagination } from "antd";
 import WorkoutCard from "@/components/WorkoutCard";
 import { Plus } from "lucide-react";
 import Link from "next/link";
+import Container from "@/components/common/Container";
 
 interface WorkoutItem {
   id: number;
@@ -32,7 +33,7 @@ export default function WorkoutPlan() {
   const currentWorkouts = workouts.slice(startIndex, endIndex);
 
   return (
-    <div className='container mx-auto p-4 md:p-6'>
+    <Container>
       <div className='mb-6 flex items-center justify-between'>
         <h2 className='text-2xl font-semibold text-[#000000]'>Workout Plan</h2>
         <Link href={"/workout/add-workout"}>
@@ -57,6 +58,6 @@ export default function WorkoutPlan() {
           showSizeChanger={false}
         />
       </div>
-    </div>
+    </Container>
   );
 }

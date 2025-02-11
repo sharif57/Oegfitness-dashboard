@@ -6,6 +6,7 @@ import { InfoIcon } from "lucide-react";
 import "antd/dist/reset.css";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import Container from "@/components/common/Container";
 
 interface Appointment {
   id: number;
@@ -41,7 +42,7 @@ export default function AppointmentDashboard() {
 
   return (
     <div className='min-h-screen bg-[#FFFFFF] p-4 md:p-8'>
-      <div className='mx-auto max-w-[94%]'>
+      <Container>
         {/* Header */}
         <div className='mb-6 flex flex-col space-y-4  sm:space-y-0'>
           <h1 className='text-2xl font-medium text-[#000000]'>Appointment</h1>
@@ -119,7 +120,7 @@ export default function AppointmentDashboard() {
             showSizeChanger={false}
           />
         </div>
-      </div>
+      </Container>
     </div>
   );
 }

@@ -1,9 +1,15 @@
+"use client";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import React from "react";
 
 const Header = () => {
+  const pathname = usePathname();
+
+  if (pathname == "/login" || pathname == "/register") return null;
+
   return (
-    <header className='sticky top-0 z-40 bg p-4 text-white'>
+    <header className='sticky top-0 z-40 bg p-4 text-white  lg:ml-64'>
       <div className='flex items-center justify-between bg-[#01336F] py-5 px-3'>
         <div className='flex items-center space-x-4'>
           {/* <Image src="/logo.png" alt="OEG" width={40} height={40} className="h-8 w-auto lg:hidden" /> */}

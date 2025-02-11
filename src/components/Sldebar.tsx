@@ -29,7 +29,8 @@ const navigation = [
 export function Sidebar() {
   const pathname = usePathname();
 
-  console.log(pathname);
+  if (pathname == "/login" || pathname == "/register") return null;
+
   return (
     <div className='flex h-full min-h-screen w-64 fixed top-0 left-0 flex-col bg-[#002B5B] text-white'>
       <div className='p-4'>
@@ -60,7 +61,7 @@ export function Sidebar() {
       </nav>
 
       <div className='p-4'>
-        <button className='w-full rounded-lg bg-[#BF0C0A] px-4 py-2 text-sm font-medium hover:bg-red-700'>
+        <button className='w-full flex items-center justify-center gap-3 rounded-lg bg-[#BF0C0A] px-4 py-4 text-sm font-medium hover:bg-red-700'>
           <LogOut /> Logout
         </button>
       </div>

@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, Plus, Upload } from "lucide-react";
+import Container from "@/components/common/Container";
 
 interface WorkoutDay {
   title: string;
@@ -48,7 +49,7 @@ export default function AddWorkout() {
 
   return (
     <div className='min-h-screen bg-gray-50 p-4 md:p-6'>
-      <div className='mx-auto max-w-[90%]'>
+      <Container>
         {/* Header */}
         <Link
           href='#'
@@ -224,7 +225,7 @@ export default function AddWorkout() {
             </button>
           </div>
         </form>
-      </div>
+      </Container>
     </div>
   );
 }

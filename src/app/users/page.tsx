@@ -3,8 +3,9 @@
 import { MetricCard } from "@/components/MetricCard";
 import { RecentItemsTable } from "@/components/RecentItemsTable";
 import { ArrowLeft, Info } from "lucide-react";
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 import { Button, Modal } from "antd";
+import { useGetAllUsersQuery } from "@/redux/features/users/UserAPI";
 
 interface RecentItem {
   id: string;
@@ -58,7 +59,9 @@ const Earnings = () => {
   const [modalText, setModalText] = useState("Content of the modal");
   const [currentUser, setCurrentUser] = useState<ICurrentUser | null>(null);
 
-  console.log(currentUser);
+  const { data: users, isLoading, isError } = useGetAllUsersQuery();
+
+  console.log({ users });
 
   const showModal = (item?: ICurrentUser | null) => {
     setOpen(true);

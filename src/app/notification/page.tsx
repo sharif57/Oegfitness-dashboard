@@ -1,4 +1,5 @@
 "use client";
+import Container from "@/components/common/Container";
 import { ArrowLeft, Bell } from "lucide-react";
 import { useRouter } from "next/navigation";
 
@@ -10,7 +11,7 @@ export default function NotificationsPage() {
   };
   return (
     <div className='min-h-screen bg-[#FFFFFF]'>
-      <div className='max-w-[95%] mx-auto p-4'>
+      <Container>
         {/* Header */}
         <header className='flex items-center justify-between mb-6'>
           <div className='flex items-center gap-2'>
@@ -53,7 +54,7 @@ export default function NotificationsPage() {
             </div>
           </div>
         </div>
-      </div>
+      </Container>
     </div>
   );
 }

@@ -4,6 +4,7 @@ import "./globals.css";
 import { MobileNav } from "@/components/MobileNav";
 import { Sidebar } from "@/components/Sldebar";
 import Header from "@/components/Header";
+import Providers from "@/redux/Providers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,24 +31,26 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <div className='flex min-h-screen flex-col bg-gray-50 lg:flex-row'>
-          {/* Desktop Sidebar - Hidden on mobile */}
-          <div className='hidden lg:block'>
-            <Sidebar />
-          </div>
+        <Providers>
+          <div className='flex min-h-screen flex-col bg-gray-50 lg:flex-row'>
+            {/* Desktop Sidebar - Hidden on mobile */}
+            <div className='hidden lg:block'>
+              <Sidebar />
+            </div>
 
-          <div className='flex flex-1 flex-col lg:ml-64'>
-            {/* Header */}
-            <Header />
-            {/* Main Content */}
+            <div className='flex flex-1 flex-col'>
+              {/* Header */}
+              <Header />
+              {/* Main Content */}
 
-            {children}
-            {/* Mobile Navigation - Fixed at bottom */}
-            <div className='fixed bottom-0 left-0 z-50 w-full lg:hidden'>
-              <MobileNav />
+              {children}
+              {/* Mobile Navigation - Fixed at bottom */}
+              <div className='fixed bottom-0 left-0 z-50 w-full lg:hidden'>
+                <MobileNav />
+              </div>
             </div>
           </div>
-        </div>
+        </Providers>
       </body>
     </html>
   );

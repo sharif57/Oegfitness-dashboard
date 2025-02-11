@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { ArrowLeft, Camera, Eye, EyeOff } from "lucide-react";
 import { useRouter } from "next/navigation";
+import Container from "@/components/common/Container";
 
 export default function ProfilePage() {
   const [showPassword, setShowPassword] = useState(false);
@@ -30,7 +31,7 @@ export default function ProfilePage() {
 
   return (
     <div className='min-h-screen bg-white'>
-      <div className='max-w-[96%] mx-auto p-4'>
+      <Container>
         {/* Header */}
         <div className='flex items-center justify-between mb-8'>
           <div className='flex items-center gap-2'>
@@ -172,7 +173,7 @@ export default function ProfilePage() {
             </form>
           </div>
         </div>
-      </div>
+      </Container>
     </div>
   );
 }

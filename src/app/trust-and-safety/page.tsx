@@ -1,10 +1,11 @@
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
+import Container from "@/components/common/Container";
 
 export default function TrustAndSafety() {
   return (
     <div className='min-h-screen bg-white'>
-      <div className='max-w-4xl mx-auto p-4'>
+      <Container>
         {/* Header */}
         <div className='flex items-center justify-between mb-8'>
           <div className='flex items-center gap-2'>
@@ -93,7 +94,7 @@ export default function TrustAndSafety() {
             </Link>
           </div>
         </div>
-      </div>
+      </Container>
     </div>
   );
 }

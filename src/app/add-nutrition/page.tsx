@@ -7,6 +7,7 @@ import JoditEditor from "jodit-react";
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import Container from "@/components/common/Container";
 
 export default function AddMealPlan() {
   const [ingredients, setIngredients] = useState<string[]>([]);
@@ -48,8 +49,8 @@ export default function AddMealPlan() {
 
   return (
     <div className='min-h-screen bg-[#FFFFFF] p-4 md:p-8'>
-      <div className='mx-auto max-w-[96%]'>
-        <div className='flex items-center gap-3 my-5'>
+      <Container>
+        <div className='flex items-center gap-3 mb-5'>
           <ArrowLeft onClick={() => router.back()} className='cursor-pointer' />{" "}
           <h1 className='text-2xl font-semibold'>Add Meal Plan</h1>
         </div>
@@ -216,7 +217,7 @@ export default function AddMealPlan() {
                 ref={editor}
                 value={content}
                 config={config}
-                tabIndex={1} // tabIndex of textarea
+                tabIndex={3} // tabIndex of textarea
                 onBlur={(newContent) => setContent(newContent)} // preferred to use only this option to update the content for performance reasons
                 onChange={(newContent) => {}}
               />
@@ -230,7 +231,7 @@ export default function AddMealPlan() {
             </div>
           </div>
         </form>
-      </div>
+      </Container>
     </div>
   );
 }

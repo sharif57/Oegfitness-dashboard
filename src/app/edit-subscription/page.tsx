@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { ArrowLeft, Info } from "lucide-react";
+import Container from "@/components/common/Container";
 
 export default function EditSubscription() {
   const [showPassword, setShowPassword] = useState({
@@ -35,7 +36,7 @@ export default function EditSubscription() {
       </div>
 
       {/* Form */}
-      <div className='mx-auto max-w-2xl'>
+      <Container>
         <form className='space-y-6'>
           {/* Package Name */}
           <div className='space-y-1'>
@@ -186,7 +187,7 @@ export default function EditSubscription() {
             Update
           </button>
         </form>
-      </div>
+      </Container>
     </div>
   );
 }
