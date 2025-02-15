@@ -1,8 +1,13 @@
 import { Info } from "lucide-react";
 
 interface RecentItem {
-  id: string;
-  userName: string;
+  _id: string;
+  transactionId: string;
+  user: {
+    name: string;
+  };
+  appointmentPrice: number;
+  createdAt: string;
   date: string;
   amount: string;
   status: string;
@@ -10,7 +15,7 @@ interface RecentItem {
 
 interface RecentItemsTableProps {
   items: RecentItem[];
-  showModal: void;
+  showModal: () => string;
 }
 
 export function RecentItemsTable({ items, showModal }: RecentItemsTableProps) {
@@ -20,16 +25,16 @@ export function RecentItemsTable({ items, showModal }: RecentItemsTableProps) {
         <thead className='bg-[#002B5B] text-white'>
           <tr>
             <th className='px-3 py-3 text-left text-xs text-[#FFFFFF] font-medium lg:px-4 lg:text-lg'>
-              User Name
+              #Tr.ID
             </th>
             <th className='px-3 py-3 text-left text-xs text-[#FFFFFF] font-medium lg:px-4 lg:text-lg'>
-              Date
+              User Name
             </th>
             <th className='px-3 py-3 text-left text-xs text-[#FFFFFF] font-medium lg:px-4 lg:text-lg'>
               Amount
             </th>
             <th className='px-3 py-3 text-left text-xs text-[#FFFFFF] font-medium lg:px-4 lg:text-lg'>
-              Status
+              Date
             </th>
             <th className='px-3 py-3 text-left text-xs text-[#FFFFFF] font-medium lg:px-4 lg:text-lg'>
               Action
@@ -38,31 +43,23 @@ export function RecentItemsTable({ items, showModal }: RecentItemsTableProps) {
         </thead>
         <tbody className='divide-y divide-gray-200 bg-white'>
           {items.map((item) => (
-            <tr key={item.id}>
+            <tr key={item?._id}>
               <td className='whitespace-nowrap px-3 py-4 text-xs lg:px-4 lg:text-lg text-[#1A1918]'>
-                {item.userName}
+                {item.transactionId}
               </td>
               <td className='whitespace-nowrap px-3 py-4 text-xs lg:px-4 lg:text-lg text-[#1A1918]'>
-                {item.date}
+                {item?.user?.name}
               </td>
               <td className='whitespace-nowrap px-3 py-4 text-xs lg:px-4 lg:text-lg text-[#1A1918]'>
-                {item.amount}
+                {item?.appointmentPrice}
               </td>
               <td className='whitespace-nowrap px-3 py-4 text-xs lg:px-4 lg:text-lg text-[#1A1918]'>
-                <span
-                  className={`inline-flex rounded-full px-2 py-1 text-xs font-semibold ${
-                    item.status === "Completed"
-                      ? "bg-green-100 text-green-800"
-                      : "bg-red-400 text-white"
-                  }`}
-                >
-                  {item.status}
-                </span>
+                {item?.createdAt?.split("T")[0]}
               </td>
               <td className='whitespace-nowrap px-3 py-4 text-xs lg:px-4 lg:text-sm'>
                 <button className='rounded-full p-1 hover:bg-gray-100'>
                   <span className='sr-only'>View details</span>
-                  <Info onClick={showModal} />
+                  <Info onClick={() => showModal(item)} />
                 </button>
               </td>
             </tr>

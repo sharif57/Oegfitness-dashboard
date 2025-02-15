@@ -1,8 +1,11 @@
+"use client"
+
 import React from "react";
 import { MetricCard } from "@/components/MetricCard";
 import { EarningsChart } from "@/components/EarningChart";
 import { RecentItemsTable } from "@/components/RecentItemsTable";
 import { ArrowLeft } from "lucide-react";
+import Overview from "@/components/Overview";
 
 interface EarningsData {
   month: string;
@@ -15,6 +18,10 @@ interface RecentItem {
   date: string;
   amount: string;
   status: string;
+  transactionId: string;
+  user: { name: string };
+  appointmentPrice: string;
+  createdAt: string;
 }
 
 // Mock data - In a real app, this would come from an API
@@ -46,6 +53,10 @@ const recentItems: RecentItem[] = [
     date: "2024-02-03",
     amount: "$120",
     status: "Completed",
+    transactionId: "T123",
+    user: { name: "John" },
+    appointmentPrice: "$100",
+    createdAt: "2024-01-01",
   },
   {
     id: "2",
@@ -53,6 +64,10 @@ const recentItems: RecentItem[] = [
     date: "2024-02-03",
     amount: "$120",
     status: "Incompleted",
+    transactionId: "T124",
+    user: { name: "Bon" },
+    appointmentPrice: "$100",
+    createdAt: "2024-01-02",
   },
   {
     id: "3",
@@ -60,6 +75,10 @@ const recentItems: RecentItem[] = [
     date: "2024-02-03",
     amount: "$120",
     status: "Completed",
+    transactionId: "T125",
+    user: { name: "Niha" },
+    appointmentPrice: "$100",
+    createdAt: "2024-01-03",
   },
 ];
 
@@ -70,16 +89,7 @@ export default function DashboardPage() {
         <main className='flex-1 overflow-x-hidden overflow-y-auto p-4 pb-20 lg:pb-4'>
           <div className='space-y-6'>
             {/* Overview Section */}
-            <section>
-              <h2 className='flex items-center gap-2 mb-4 text-lg font-semibold lg:text-xl'>
-                <ArrowLeft className='cursor-pointer' /> Overview
-              </h2>
-              <div className='grid gap-4 sm:grid-cols-2 lg:grid-cols-3 max-w-[90%] mx-auto'>
-                {metrics.map((metric) => (
-                  <MetricCard key={metric.title} {...metric} />
-                ))}
-              </div>
-            </section>
+            <Overview />
 
             {/* Earnings Section */}
             <section>
@@ -103,9 +113,9 @@ export default function DashboardPage() {
               <h2 className='mb-4 text-lg texty-[#1A1918] font-medium lg:text-2xl'>
                 Recent Items
               </h2>
-              <div className='rounded-lg bg-white shadow-sm'>
+              {/* <div className='rounded-lg bg-white shadow-sm'>
                 <RecentItemsTable items={recentItems} />
-              </div>
+              </div> */}
             </section>
           </div>
         </main>

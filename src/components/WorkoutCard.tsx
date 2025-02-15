@@ -7,9 +7,10 @@ import { useEffect, useRef, useState } from "react";
 
 interface WorkoutItem {
   id: number;
-  title: string;
+  planName: string;
   description: string;
   imageUrl: string;
+  totalDays: number;
 }
 
 interface WorkoutCardProps {
@@ -19,6 +20,7 @@ interface WorkoutCardProps {
 export default function WorkoutCard({ workout }: WorkoutCardProps) {
   const [open, setOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+  const IMAGE_URL = "http://115.127.156.13:3005/";
 
   const items: MenuProps["items"] = [
     {
@@ -47,24 +49,31 @@ export default function WorkoutCard({ workout }: WorkoutCardProps) {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [open]);
+
   return (
     <div className='rounded-xl shadow-md p-6'>
-      <div className='mt-1.5 mb-3 rounded-xl h-[600px]'>
+      <div className='mt-1.5 mb-3 rounded-lg max-h-[600px]'>
         <Image
-          src={workout.imageUrl}
+          // src={`${IMAGE_URL}/${workout.imageUrl}` || "/workout.jpg"}
+          src={"/workout.jpg"}
           className='rounded-xl'
           width={700}
           height={800}
-          alt={workout.title}
+          alt={workout.planName}
         />
       </div>
 
       <div className='pb-3'>
-        <div className='flex items-center justify-between'>
+        <div className='flex items-center justify-between mb-2'>
           <h2 className='text-2xl font-semibold text-[#000000]'>
-            {workout.title}
+            {workout?.planName}
           </h2>
-          <p className='text-[#545454] text-xl'>Time: 30 min</p>
+          <p className='text-[#545454] text-xl'>
+            Time:{" "}
+            {workout?.totalDays < 7
+              ? `${workout?.totalDays} days`
+              : `${Math.floor(workout?.totalDays / 7)} weeks`}
+          </p>
         </div>
         <p className='text-base text-[#545454] leading-[26px]'>
           {workout.description}

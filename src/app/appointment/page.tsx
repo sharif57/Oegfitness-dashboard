@@ -7,7 +7,7 @@ import "antd/dist/reset.css";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import Container from "@/components/common/Container";
-import { useGetAllAppointmentsQuery } from "@/redux/features/appointment/AppointmentAPI";
+import { useGetAllAppointmentsQuery } from "@/redux/features/appointmentPlan/AppointmentPlanAPI";
 
 interface Appointment {
   id: number;
@@ -51,28 +51,15 @@ export default function AppointmentDashboard() {
     router.back();
   };
 
+  const IMAGE_URL = "http://115.127.156.13:3005";
+
   return (
     <div className='min-h-screen bg-[#FFFFFF] p-4 md:p-8'>
       <Container>
         {/* Header */}
         <div className='mb-6 flex flex-col space-y-4 sm:space-y-0'>
-          <h1 className='text-2xl font-medium text-[#000000]'>Appointment</h1>
           <div className='flex items-center justify-between'>
-            <div className='flex space-x-4'>
-              {filters.map((filterItem) => (
-                <button
-                  key={filterItem}
-                  onClick={() => setFilter(filterItem)}
-                  className={`rounded-full px-4 py-1 text-sm ${
-                    filter === filterItem
-                      ? "bg-[#101010] text-[#FDFDFD]"
-                      : "bg-[#F4F5F6] text-[#676767] hover:bg-gray-100"
-                  }`}
-                >
-                  {filterItem}
-                </button>
-              ))}
-            </div>
+            <h1 className='text-2xl font-medium text-[#000000]'>Appointment</h1>
             <div className='ml-4 text-base text-[#545454]'>
               Total:{" "}
               <span className='font-semibold'>{appointmentList.length}</span>
@@ -91,14 +78,16 @@ export default function AppointmentDashboard() {
           <p className='text-center text-gray-500'>No appointments found.</p>
         ) : (
           <div className='grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3'>
-            {currentItems.map((appointment) => (
+            {currentItems.map((appointment: Appointment) => (
               <div
                 key={appointment.id}
                 className='overflow-hidden rounded-lg bg-[#FFFFFF] shadow-lg p-5'
               >
                 <div className='w-full relative h-[328px]'>
                   <Image
-                    src={appointment.image || "/placeholder.svg"}
+                    src={
+                      `${IMAGE_URL}${appointment.image}` || "/placeholder.svg"
+                    }
                     width={600}
                     height={700}
                     alt={appointment.title}

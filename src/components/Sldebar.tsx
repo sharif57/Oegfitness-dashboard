@@ -17,15 +17,61 @@ import {
 import { usePathname } from "next/navigation";
 
 const navigation = [
-  { name: "Dashboard", href: "/", icon: LayoutDashboard },
-  { name: "Earnings", href: "/earnings", icon: DollarSign },
-  { name: "Workout Plan", href: "/workout", icon: Dumbbell },
-  { name: "Nutrition Plan", href: "/nutrition", icon: Apple },
-  { name: "Appointment Plan", href: "/appointment-plan", icon: CalendarDays },
-  { name: "Appointment", href: "/appointment", icon: Calendar },
-  { name: "Users", href: "/users", icon: Users },
-  { name: "Subscription", href: "/subscription", icon: CreditCard },
-  { name: "Settings", href: "/settings", icon: Settings },
+  {
+    name: "Dashboard",
+    href: "/",
+    icon: LayoutDashboard,
+    img: "/sidebar/x.svg",
+  },
+  {
+    name: "Earnings",
+    href: "/earnings",
+    icon: DollarSign,
+    img: "/sidebar/x.svg",
+  },
+  {
+    name: "Exercise",
+    href: "/exercise",
+    icon: DollarSign,
+    img: "/sidebar/x.svg",
+  },
+  {
+    name: "Workout Plan",
+    href: "/workout",
+    icon: Dumbbell,
+    img: "/sidebar/x.svg",
+  },
+  {
+    name: "Nutrition Plan",
+    href: "/nutrition",
+    icon: Apple,
+    img: "/sidebar/x.svg",
+  },
+  {
+    name: "Appointment Plan",
+    href: "/appointment-plan",
+    icon: CalendarDays,
+    img: "/sidebar/x.svg",
+  },
+  {
+    name: "Appointment",
+    href: "/appointment",
+    icon: Calendar,
+    img: "/sidebar/x.svg",
+  },
+  { name: "Users", href: "/users", icon: Users, img: "/sidebar/x.svg" },
+  {
+    name: "Subscription",
+    href: "/subscription",
+    icon: CreditCard,
+    img: "/sidebar/x.svg",
+  },
+  {
+    name: "Settings",
+    href: "/settings",
+    icon: Settings,
+    img: "/sidebar/x.svg",
+  },
 ];
 
 export function Sidebar() {
@@ -57,6 +103,7 @@ export function Sidebar() {
             } hover:bg-blue-900 hover:text-white`}
           >
             <item.icon className='mr-3 h-5 w-5' />
+            {/* <Image src={item.icon.src} alt={item.name} width={24} height={24} /> */}
             {item.name}
           </Link>
         ))}

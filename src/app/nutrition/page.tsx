@@ -12,22 +12,47 @@ import "antd/dist/reset.css";
 import Image from "next/image";
 import Link from "next/link";
 import Container from "@/components/common/Container";
+import { useGetAllNutritionsQuery } from "@/redux/features/nutritions/NutritionAPI";
 
-const nutritionData = Array(12).fill({
-  title: "Bariatric Meal Plan",
-  rating: 4.9,
-  description:
-    "Our Bariatric Meal Plan is specially formulated for individuals who have undergone bariatric surgery. It ensures you get the necessary nutrients while",
-  image: "/nutrition.png",
-});
+interface INutrition {
+  _id: string;
+  title: string;
+  instruction: string;
+  image: string;
+  rating: number;
+}
 
 export default function NutritionPlan() {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
 
+  const {
+    data: nutritionData,
+    isLoading,
+    isError,
+  } = useGetAllNutritionsQuery();
+
+  if (isLoading || !nutritionData.data) {
+    console.log("loading .........");
+    return <div>Loading...</div>;
+  }
+
+  if (isError) {
+    return <div>Error</div>;
+  }
+
+  console.log(nutritionData?.data);
+
+  console.log("Ending .........");
+
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = nutritionData.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = nutritionData?.data.slice(
+    indexOfFirstItem,
+    indexOfLastItem
+  );
+
+  const IMAGE_URL = "http://115.127.156.13:3005";
 
   return (
     <div className='min-h-screen bg-gray-50 p-4 md:p-8'>
@@ -45,14 +70,15 @@ export default function NutritionPlan() {
 
         {/* Card Grid */}
         <div className='grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3'>
-          {currentItems.map((item, index) => (
+          {currentItems.map((item: INutrition) => (
             <div
-              key={index}
+              key={item._id}
               className='overflow-hidden rounded-lg bg-white shadow-md transition-transform hover:scale-[1.02]'
             >
+              {item?.image}
               <div className='relative h-64 w-full'>
                 <Image
-                  src={item.image || "/placeholder.svg"}
+                  src={`${IMAGE_URL}${item?.image}` || "/placeholder.svg"}
                   width={600}
                   height={700}
                   alt='Meal Plan'
@@ -73,7 +99,9 @@ export default function NutritionPlan() {
                 </div>
 
                 <div className='flex items-stretch justify-between'>
-                  <p className='text-base text-[#545454]'>{item.description}</p>
+                  <p className='text-base text-[#545454]'>
+                    {item?.instruction}
+                  </p>
                   <div className='flex flex-col items-center'>
                     <button className='rounded-full p-2 hover:bg-gray-100'>
                       <InfoCircleOutlined className='h-5 w-5 text-gray-500' />
@@ -93,7 +121,7 @@ export default function NutritionPlan() {
           <Pagination
             current={currentPage}
             onChange={(page) => setCurrentPage(page)}
-            total={nutritionData.length}
+            total={nutritionData?.data.length || 0}
             pageSize={itemsPerPage}
             showSizeChanger={false}
           />

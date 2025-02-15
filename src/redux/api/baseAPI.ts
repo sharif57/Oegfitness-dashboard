@@ -16,9 +16,12 @@ const baseAPI = createApi({
   tagTypes: [
     "Question",
     "Package",
-    "Room",
+    "Earning",
     "Users",
     "User",
+    "Exercise",
+    "Overview",
+    "Nutrition",
     "WorkOut",
     "WorkoutPlan",
     "Appointments",

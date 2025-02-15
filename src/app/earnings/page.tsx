@@ -1,13 +1,13 @@
+"use client";
+
 // import { EarningsChart } from "@/components/EarningChart";
 import { MetricCard } from "@/components/MetricCard";
+import Overview from "@/components/Overview";
 import { RecentItemsTable } from "@/components/RecentItemsTable";
+import { useGetAllEarningQuery } from "@/redux/features/earning/EarningAPI";
+import { Modal } from "antd";
 import { ArrowLeft } from "lucide-react";
-import React from "react";
-
-// interface EarningsData {
-//   month: string;
-//   amount: number;
-// }
+import React, { useState } from "react";
 
 interface RecentItem {
   id: string;
@@ -15,6 +15,27 @@ interface RecentItem {
   date: string;
   amount: string;
   status: string;
+}
+
+interface User {
+  _id: string;
+  name: string;
+  email: string;
+}
+
+interface ICurrentUser {
+  _id: string;
+  transactionId: string;
+  appointmentPrice: number;
+  status: "COMPLETED" | "PENDING" | "FAILED";
+  createdAt: string;
+  updatedAt: string;
+  user: User;
+}
+
+interface RecentItemsTableProps {
+  items: RecentItem[];
+  showModal: (item: ICurrentUser) => void;
 }
 
 const metrics = [
@@ -63,22 +84,115 @@ const recentItems: RecentItem[] = [
 ];
 
 const Earnings = () => {
+  const [open, setOpen] = useState(false);
+  const [confirmLoading, setConfirmLoading] = useState(false);
+  const { data: earnings, isLoading, isError } = useGetAllEarningQuery();
+  const [currentUser, setCurrentUser] = useState<ICurrentUser | null>(null);
+
+  if (isLoading) {
+    return (
+      <div className='text-center text-blue-600 font-semibold'>Loading...</div>
+    );
+  }
+
+  const handleOk = () => {
+    setConfirmLoading(true);
+
+    setTimeout(() => {
+      setOpen(false);
+      setConfirmLoading(false);
+    }, 2000);
+  };
+
+  const handleCancel = () => {
+    console.log("Clicked cancel button");
+    setOpen(false);
+  };
+
+  const showModalX = (item: ICurrentUser) => {
+    console.log(item);
+    setOpen(!open);
+    setCurrentUser(item);
+  };
+
+  console.log("Earning Data", earnings?.data);
+
   return (
     <div className='flex min-h-screen flex-col bg-gray-50 lg:flex-row'>
+      {/* modal */}
+      <>
+        <Modal
+          // title='Title'
+          open={open}
+          onOk={handleOk}
+          confirmLoading={confirmLoading}
+          onCancel={handleCancel}
+          footer={null}
+        >
+          <div>
+            <h2 className='text-2xl font-semibold text-[#1A1918] text-center my-3'>
+              Transaction Details
+            </h2>
+
+            <div className='flex flex-col space-y-4'>
+              <div className='flex items-center justify-between border-b pb-2'>
+                <p className='text-lg font-medium text-[#1A1918]'>User ID: </p>
+                <p className='text-lg text-[#737163]'>
+                  {" "}
+                  {currentUser?.transactionId}
+                </p>
+              </div>
+              <div className='flex items-center justify-between border-b pb-2'>
+                <p className='text-lg font-medium text-[#1A1918]'>Date </p>
+                <p className='text-lg text-[#737163]'>
+                  {currentUser?.createdAt?.split("T")[0]}
+                </p>
+              </div>
+              <div className='flex items-center justify-between border-b pb-2'>
+                <p className='text-lg font-medium text-[#1A1918]'>User Name </p>
+                <p className='text-lg text-[#737163]'>
+                  {" "}
+                  {currentUser?.user?.name}
+                </p>
+              </div>
+              <div className='flex items-center justify-between border-b pb-2'>
+                <p className='text-lg font-medium text-[#1A1918]'>
+                  A/C number{" "}
+                </p>
+                {/* <p className='text-lg text-[#737163]'> **** **** **** *545</p> */}
+              </div>
+              <div className='flex items-center justify-between border-b pb-2'>
+                <p className='text-lg font-medium text-[#1A1918]'>A</p>
+                {/* <p className='text-lg text-[#737163]'> Jamse smith</p> */}
+              </div>
+              <div className='flex items-center justify-between border-b pb-2'>
+                <p className='text-lg font-medium text-[#1A1918]'>
+                  Transaction Amount
+                </p>
+                <p className='text-lg text-[#737163]'>
+                  ${currentUser?.appointmentPrice}
+                </p>
+              </div>
+              <div className='flex items-center justify-between border-b pb-2'>
+                <p className='text-lg font-medium text-[#1A1918]'>
+                  Subscription Purchased
+                </p>
+                {/* <p className='text-lg text-[#737163]'>Basic</p> */}
+              </div>
+            </div>
+
+            <button className='bg-[#01336F] hover:bg-[#01336F] text-white py-2 mt-5 mb-2 w-full rounded'>
+              Download
+            </button>
+          </div>
+        </Modal>
+      </>
+
       <div className='flex flex-1 flex-col'>
         <main className='flex-1 overflow-x-hidden overflow-y-auto p-4 pb-20 lg:pb-4'>
           <div className='space-y-6'>
             {/* Overview Section */}
-            <section>
-              <h2 className='flex items-center gap-2 mb-4 text-lg font-semibold lg:text-xl'>
-                <ArrowLeft className='cursor-pointer' /> Overview
-              </h2>
-              <div className='grid gap-4 sm:grid-cols-2 lg:grid-cols-3 max-w-[90%] mx-auto'>
-                {metrics.map((metric) => (
-                  <MetricCard key={metric.title} {...metric} />
-                ))}
-              </div>
-            </section>
+            <Overview />
 
             {/* Earnings Section */}
             <section>
@@ -90,20 +204,21 @@ const Earnings = () => {
                   <option>2024 May</option>
                 </select>
               </div>
-              {/* <div className='rounded-lg bg-white p-4 shadow-sm'>
-                <div className='h-[250px] lg:h-[300px]'>
-                  <EarningsChart data={earningsData} />
-                </div>
-              </div> */}
             </section>
 
             {/* Recent Items Section */}
             <section>
               <h2 className='mb-4 text-lg texty-[#1A1918] font-medium lg:text-2xl'>
-                Recent Items
+                Recent Transactions
               </h2>
               <div className='rounded-lg bg-white shadow-sm'>
-                <RecentItemsTable items={recentItems} />
+                <RecentItemsTable
+                  // items={recentItems}
+                  items={earnings?.data?.payments || []}
+                  showModal={(item: ICurrentUser) => {
+                    showModalX(item);
+                  }}
+                />
               </div>
             </section>
           </div>

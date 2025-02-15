@@ -67,7 +67,7 @@ const Earnings = () => {
 
   const showModal = (item?: ICurrentUser | null) => {
     setOpen(true);
-    setCurrentUser(item);
+    setCurrentUser(item ?? null);
   };
 
   const handleOk = () => {
@@ -85,7 +85,7 @@ const Earnings = () => {
     setOpen(false);
   };
 
-  console.log(currentUser);
+  console.log({ currentUser });
 
   return (
     <>
@@ -207,6 +207,7 @@ const Earnings = () => {
                             role: string;
                             verified: boolean;
                             status: string;
+                            createdAt: string;
                           }) => (
                             <tr key={user._id}>
                               <td className='whitespace-nowrap px-3 py-4 text-lg lg:px-4 lg:text-lg text-[#1A1918]'>
