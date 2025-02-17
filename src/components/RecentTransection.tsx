@@ -1,12 +1,12 @@
 "use client";
 
-import { MetricCard } from "@/components/MetricCard";
-import { RecentItemsTable } from "@/components/RecentItemsTable";
-import { ArrowLeft, Info } from "lucide-react";
-import React, { use, useState } from "react";
-import { Button, Modal } from "antd";
-import { useGetAllUsersQuery } from "@/redux/features/users/UserAPI";
-import Overview from "@/components/Overview";
+import { Info } from "lucide-react";
+import React, { use, useEffect, useState } from "react";
+import { Modal } from "antd";
+import {
+  useGetAllEarningQuery,
+  useGetSinglePaymentQuery,
+} from "@/redux/features/payment/PaymentAPI";
 
 interface RecentItem {
   id: string;
@@ -14,38 +14,50 @@ interface RecentItem {
   date: string;
   amount: string;
   status: string;
+  createdAt?: string;
 }
 
-const metrics = [
-  { title: "Total User", value: 3520 },
-  { title: "Total Earnings", value: 81230 },
-  { title: "Total Subscription", value: 856330 },
-];
-
-interface ICurrentUser {
-  _id: string;
-  name: string;
-  createdAt: string;
-  email: string;
-  role: string;
-  verified: boolean;
-  status: string;
-}
-
-const Earnings = () => {
+const RecentTransection = () => {
   const [open, setOpen] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [modalText, setModalText] = useState("Content of the modal");
-  const [currentUser, setCurrentUser] = useState<ICurrentUser | null>(null);
 
-  const { data: users, isLoading, isError } = useGetAllUsersQuery();
+  interface PaymentDetails {
+    userId?: {
+      _id?: string;
+      name?: string;
+    };
+    user?: {
+      name?: string;
+    };
+    appointmentPrice?: number;
+  }
 
-  console.log(users?.data?.result);
+  const [singleUserPaymentDetails, setSingleUserPaymentDetails] =
+    useState<PaymentDetails>({});
 
-  const showModal = (item?: ICurrentUser | null) => {
-    setOpen(true);
-    setCurrentUser(item ?? null);
+  const [id, setId] = useState("");
+
+  const { data: transaction, isLoading, isError } = useGetAllEarningQuery();
+  const { data: singlePayment, isLoading: singlePaymentLoading } =
+    useGetSinglePaymentQuery(id);
+
+  const showModal = (id?: string) => {
+    setId(id || "");
+    if (id) {
+      setOpen(true);
+      useGetSinglePaymentQuery(id);
+      alert(id);
+    }
   };
+
+  useEffect(() => {
+    if (singlePayment?.data) {
+      setSingleUserPaymentDetails(singlePayment?.data);
+    }
+  }, [singlePayment?.data]);
+
+  console.log("singlePayment", singleUserPaymentDetails);
 
   const handleOk = () => {
     setModalText("The modal will be closed after two seconds");
@@ -62,7 +74,7 @@ const Earnings = () => {
     setOpen(false);
   };
 
-  console.log({ currentUser });
+  console.log(transaction?.data?.payments);
 
   return (
     <>
@@ -78,23 +90,29 @@ const Earnings = () => {
         >
           <div>
             <h2 className='text-2xl font-semibold text-[#1A1918] text-center my-3'>
-              User Details
+              Transection Details
             </h2>
 
             <div className='flex flex-col space-y-4'>
               <div className='flex items-center justify-between border-b pb-2'>
                 <p className='text-lg font-medium text-[#1A1918]'>User ID: </p>
-                <p className='text-lg text-[#737163]'> {currentUser?._id}</p>
+                <p className='text-lg text-[#737163]'>
+                  {" "}
+                  {singleUserPaymentDetails?.userId?._id}
+                </p>
               </div>
               <div className='flex items-center justify-between border-b pb-2'>
                 <p className='text-lg font-medium text-[#1A1918]'>Date </p>
                 <p className='text-lg text-[#737163]'>
-                  {currentUser?.createdAt.split("T")[0]}
+                  {singleUserPaymentDetails?.createdAt?.split("T")[0]}
                 </p>
               </div>
               <div className='flex items-center justify-between border-b pb-2'>
                 <p className='text-lg font-medium text-[#1A1918]'>User Name </p>
-                <p className='text-lg text-[#737163]'> {currentUser?.name}</p>
+                <p className='text-lg text-[#737163]'>
+                  {" "}
+                  {singleUserPaymentDetails?.user?.name}
+                </p>
               </div>
               <div className='flex items-center justify-between border-b pb-2'>
                 <p className='text-lg font-medium text-[#1A1918]'>
@@ -104,13 +122,17 @@ const Earnings = () => {
               </div>
               <div className='flex items-center justify-between border-b pb-2'>
                 <p className='text-lg font-medium text-[#1A1918]'>User Name</p>
-                <p className='text-lg text-[#737163]'> Jamse smith</p>
+                <p className='text-lg text-[#737163]'>
+                  {singleUserPaymentDetails?.userId?.name}
+                </p>
               </div>
               <div className='flex items-center justify-between border-b pb-2'>
                 <p className='text-lg font-medium text-[#1A1918]'>
                   Transaction Amount
                 </p>
-                <p className='text-lg text-[#737163]'>$50</p>
+                <p className='text-lg text-[#737163]'>
+                  ${singleUserPaymentDetails?.appointmentPrice}
+                </p>
               </div>
               <div className='flex items-center justify-between border-b pb-2'>
                 <p className='text-lg font-medium text-[#1A1918]'>
@@ -131,11 +153,6 @@ const Earnings = () => {
         <div className='flex flex-1 flex-col'>
           <main className='flex-1 overflow-x-hidden overflow-y-auto p-4 pb-20 lg:pb-4'>
             <div className='space-y-6'>
-              {/* Overview Section */}
-              <section>
-                <Overview />
-              </section>
-
               {/* Recent Items Section */}
               <section>
                 <h2 className='mb-4 text-lg text-[#1A1918] bg-[#F2F5F7] font-medium lg:text-2xl'>
@@ -166,38 +183,28 @@ const Earnings = () => {
                         </tr>
                       </thead>
                       <tbody className='divide-y divide-gray-200 bg-white'>
-                        {users?.data?.result.map(
+                        {transaction?.data?.payments?.map(
                           (user: {
                             _id: string;
-                            name: string;
-                            email: string;
-                            role: string;
-                            verified: boolean;
-                            status: string;
+                            transactionId: string;
+                            user: {
+                              name: string;
+                            };
+                            appointmentPrice: number;
                             createdAt: string;
                           }) => (
                             <tr key={user._id}>
                               <td className='whitespace-nowrap px-3 py-4 text-lg lg:px-4 lg:text-lg text-[#1A1918]'>
-                                {user.name}
+                                {user?.transactionId}
                               </td>
                               <td className='whitespace-nowrap px-3 py-4 text-lg lg:px-4 lg:text-lg text-[#1A1918]'>
-                                {user.email}
+                                {user?.user?.name}
                               </td>
                               <td className='whitespace-nowrap px-3 py-4 text-lg lg:px-4 lg:text-lg text-[#1A1918]'>
-                                {user.role}
+                                ${user?.appointmentPrice}
                               </td>
                               <td className='whitespace-nowrap px-3 py-4 text-lg lg:px-4 lg:text-lg text-[#1A1918]'>
-                                <span
-                                  className={`inline-flex rounded-full px-2 py-1 text-xs font-semibold ${
-                                    user.verified === true
-                                      ? "bg-green-100 text-green-800"
-                                      : "bg-red-400 text-white"
-                                  }`}
-                                >
-                                  {user.verified === true
-                                    ? "Verified"
-                                    : "Not Verified"}
-                                </span>
+                                {user?.createdAt.split("T")[0]}
                               </td>
                               <td className='whitespace-nowrap px-3 py-4 text-xs lg:px-4 lg:text-sm'>
                                 <button
@@ -207,7 +214,7 @@ const Earnings = () => {
                                   <span className='sr-only'>View details</span>
                                   <Info
                                     className='text-gray-700'
-                                    onClick={() => showModal(user)}
+                                    onClick={() => showModal(user?._id)}
                                   />
                                 </button>
                               </td>
@@ -227,4 +234,4 @@ const Earnings = () => {
   );
 };
 
-export default Earnings;
+export default RecentTransection;

@@ -15,10 +15,8 @@ const ExerciseAPI = baseAPI.injectEndpoints({
         url: "/exercise/create-exercise",
         method: "POST",
         body: formData,
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
       }),
+      invalidatesTags: ["Exercise"],
     }),
   }),
 });

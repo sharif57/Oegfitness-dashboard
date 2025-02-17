@@ -59,7 +59,7 @@ export function RecentItemsTable({ items, showModal }: RecentItemsTableProps) {
               <td className='whitespace-nowrap px-3 py-4 text-xs lg:px-4 lg:text-sm'>
                 <button className='rounded-full p-1 hover:bg-gray-100'>
                   <span className='sr-only'>View details</span>
-                  <Info onClick={() => showModal(item)} />
+                  <Info onClick={showModal} />
                 </button>
               </td>
             </tr>

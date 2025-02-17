@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React from "react";
 import { MetricCard } from "@/components/MetricCard";
@@ -6,6 +6,7 @@ import { EarningsChart } from "@/components/EarningChart";
 import { RecentItemsTable } from "@/components/RecentItemsTable";
 import { ArrowLeft } from "lucide-react";
 import Overview from "@/components/Overview";
+import RecentTransection from "@/components/RecentTransection";
 
 interface EarningsData {
   month: string;
@@ -110,12 +111,7 @@ export default function DashboardPage() {
 
             {/* Recent Items Section */}
             <section>
-              <h2 className='mb-4 text-lg texty-[#1A1918] font-medium lg:text-2xl'>
-                Recent Items
-              </h2>
-              {/* <div className='rounded-lg bg-white shadow-sm'>
-                <RecentItemsTable items={recentItems} />
-              </div> */}
+              <RecentTransection />
             </section>
           </div>
         </main>

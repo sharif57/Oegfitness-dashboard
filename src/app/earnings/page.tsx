@@ -4,7 +4,8 @@
 import { MetricCard } from "@/components/MetricCard";
 import Overview from "@/components/Overview";
 import { RecentItemsTable } from "@/components/RecentItemsTable";
-import { useGetAllEarningQuery } from "@/redux/features/earning/EarningAPI";
+import RecentTransection from "@/components/RecentTransection";
+import { useGetAllEarningQuery } from "@/redux/features/payment/PaymentAPI";
 import { Modal } from "antd";
 import { ArrowLeft } from "lucide-react";
 import React, { useState } from "react";
@@ -200,7 +201,7 @@ const Earnings = () => {
                 <h2 className='text-lg text-[#181414] lg:text-[29px]'>
                   Earnings
                 </h2>
-                <select className='rounded-lg border border-gray-300 px-2 py-1 text-sm'>
+                <select className='rounded-lg border text-gray-900 border-gray-300 px-2 py-1 text-sm'>
                   <option>2024 May</option>
                 </select>
               </div>
@@ -208,18 +209,7 @@ const Earnings = () => {
 
             {/* Recent Items Section */}
             <section>
-              <h2 className='mb-4 text-lg texty-[#1A1918] font-medium lg:text-2xl'>
-                Recent Transactions
-              </h2>
-              <div className='rounded-lg bg-white shadow-sm'>
-                <RecentItemsTable
-                  // items={recentItems}
-                  items={earnings?.data?.payments || []}
-                  showModal={(item: ICurrentUser) => {
-                    showModalX(item);
-                  }}
-                />
-              </div>
+              <RecentTransection />
             </section>
           </div>
         </main>

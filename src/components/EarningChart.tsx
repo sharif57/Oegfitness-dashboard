@@ -1,27 +1,27 @@
-"use client"
+"use client";
 
-import { useEffect, useRef } from "react"
-import { Chart, registerables } from "chart.js"
+import { useEffect, useRef } from "react";
+import { Chart, registerables } from "chart.js";
 
 interface EarningsData {
-  month: string
-  amount: number
+  month: string;
+  amount: number;
 }
 
-Chart.register(...registerables)
+Chart.register(...registerables);
 
 interface EarningsChartProps {
-  data: EarningsData[]
+  data: EarningsData[];
 }
 
 export function EarningsChart({ data }: EarningsChartProps) {
-  const chartRef = useRef<HTMLCanvasElement>(null)
+  const chartRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
-    if (!chartRef.current) return
+    if (!chartRef.current) return;
 
-    const ctx = chartRef.current.getContext("2d")
-    if (!ctx) return
+    const ctx = chartRef.current.getContext("2d");
+    if (!ctx) return;
 
     const chart = new Chart(ctx, {
       type: "bar",
@@ -63,15 +63,14 @@ export function EarningsChart({ data }: EarningsChartProps) {
           },
         },
       },
-    })
+    });
 
-    return () => chart.destroy()
-  }, [data])
+    return () => chart.destroy();
+  }, [data]);
 
   return (
-    <div className="h-full w-full">
+    <div className='h-full w-full'>
       <canvas ref={chartRef} />
     </div>
-  )
+  );
 }
-

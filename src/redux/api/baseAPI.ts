@@ -22,6 +22,7 @@ const baseAPI = createApi({
     "Exercise",
     "Overview",
     "Nutrition",
+    "Subscription",
     "WorkOut",
     "WorkoutPlan",
     "Appointments",

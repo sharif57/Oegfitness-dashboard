@@ -1,4 +1,5 @@
 import baseAPI from "@/redux/api/baseAPI";
+import { create } from "domain";
 
 const WorkOutAPI = baseAPI.injectEndpoints({
   endpoints: (builder) => ({
@@ -9,7 +10,18 @@ const WorkOutAPI = baseAPI.injectEndpoints({
       }),
       providesTags: ["WorkOut"],
     }),
+
+    createWorkOut: builder.mutation<any, FormData>({
+      query: (formData) => ({
+        url: "/workout-plan/create-workout-plan",
+        method: "POST",
+        body: formData,
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }),
+    }),
   }),
 });
 
-export const { useGetAllWorkOutQuery } = WorkOutAPI;
+export const { useGetAllWorkOutQuery, useCreateWorkOutMutation } = WorkOutAPI;
