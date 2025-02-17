@@ -77,7 +77,7 @@ export default function AppointmentPlan() {
         {/* Header */}
         <div className='mb-8 flex flex-col justify-between gap-4 sm:flex-row sm:items-center'>
           <h1 className='text-2xl font-bold text-gray-900'>Appointment Plan</h1>
-          <Link href='/workout/add-workout'>
+          <Link href='/appointment-plan/add-appointment-plan'>
             <button className='flex items-center justify-center px-5 py-3 text-white bg-[#01336F] rounded gap-1.5'>
               <Plus /> Add Appointment
             </button>
