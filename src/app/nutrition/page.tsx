@@ -61,7 +61,7 @@ export default function NutritionPlan() {
         <div className='mb-8 flex items-center justify-between'>
           <h1 className='text-2xl font-bold text-gray-900'>Nutrition Plan</h1>
           <Link
-            href={"/add-nutrition"}
+            href={"/nutrition/add-nutrition"}
             className='flex items-center justify-center rounded-lg bg-[#01336F] px-5 py-3 text-white hover:bg-navy-700'
           >
             <Plus /> <span>Add Nutrition</span>

@@ -1,4 +1,5 @@
 import baseAPI from "@/redux/api/baseAPI";
+import { create } from "domain";
 
 const AppointmentPlanAPI = baseAPI.injectEndpoints({
   endpoints: (builder) => ({
@@ -9,9 +10,18 @@ const AppointmentPlanAPI = baseAPI.injectEndpoints({
       }),
       providesTags: ["Appointments"],
     }),
+
+    createAppointment: builder.mutation<any, FormData>({
+      query: (formData) => ({
+        url: "/appointment/create-appointment",
+        method: "POST",
+        body: formData,
+      }),
+    }),
   }),
 });
 
-export const { useGetAllAppointmentsQuery } = AppointmentPlanAPI;
+export const { useGetAllAppointmentsQuery, useCreateAppointmentMutation } =
+  AppointmentPlanAPI;
 
 export default AppointmentPlanAPI;

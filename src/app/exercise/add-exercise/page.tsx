@@ -6,6 +6,7 @@ import Link from "next/link";
 import { ArrowLeft, Upload } from "lucide-react";
 import Container from "@/components/common/Container";
 import { usePostExerciseMutation } from "@/redux/features/exercise/ExerciseAPI";
+import toast from "react-hot-toast";
 
 export default function AddExercise() {
   const [formData, setFormData] = useState({
@@ -22,6 +23,12 @@ export default function AddExercise() {
 
   const handleImageUpload = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
+
+    if (file?.name.split(".").pop() !== "gif") {
+      alert("Please upload a gif image file");
+      return;
+    }
+
     if (file && file.type.startsWith("image")) {
       setFormData((prev) => ({
         ...prev,
@@ -54,7 +61,7 @@ export default function AddExercise() {
     try {
       const response = await postExercise(formDataToSend).unwrap();
       console.log("Exercise added successfully:", response);
-      alert("Exercise added successfully!");
+      toast.success("Exercise added successfully!");
     } catch (error) {
       console.error("Failed to add exercise:", error);
       alert("Failed to add exercise. Please try again.");

@@ -124,10 +124,10 @@ export default function ExercisePage() {
           </button>
           <div className='flex items-center gap-2'>
             <span className='text-sm text-gray-600'>Page</span>
-            <span className='flex h-8 w-8 items-center justify-center rounded-md bg-transparent text-sm font-medium text-white'>
+            <span className='flex h-8 w-8 items-center justify-center rounded-md bg-transparent text-sm font-semibold text-black'>
               {currentPage}
             </span>
-            <span className='text-sm text-gray-600'>of {totalPages}</span>
+            <span className='text-sm text-gray-600'>of {totalPages}</span>                                                   
           </div>
           <button
             onClick={handleNextPage}

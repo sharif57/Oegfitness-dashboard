@@ -5,6 +5,7 @@ import { MobileNav } from "@/components/MobileNav";
 import { Sidebar } from "@/components/Sldebar";
 import Header from "@/components/Header";
 import Providers from "@/redux/Providers";
+import { Toaster } from "react-hot-toast";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,6 +32,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <Toaster />
         <Providers>
           <div className='flex min-h-screen flex-col bg-gray-50 lg:flex-row'>
             {/* Desktop Sidebar - Hidden on mobile */}

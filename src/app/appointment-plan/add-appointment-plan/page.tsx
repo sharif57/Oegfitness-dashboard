@@ -1,194 +1,13 @@
-// "use client";
-
-// import type React from "react";
-
-// import { useState } from "react";
-// import Image from "next/image";
-// import Link from "next/link";
-// import { ChevronLeft, Upload } from "lucide-react";
-
-// export default function AddAppointmentPage() {
-//   const [imagePreview, setImagePreview] = useState<string>("");
-//   const [formData, setFormData] = useState({
-//     workoutName: "",
-//     title: "",
-//     amount: "",
-//     time: "",
-//     description: "",
-//   });
-
-//   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-//     const file = e.target.files?.[0];
-//     if (file) {
-//       setImagePreview(URL.createObjectURL(file));
-//     }
-//   };
-
-//   const handleInputChange = (
-//     e: React.ChangeEvent<
-//       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-//     >
-//   ) => {
-//     const { name, value } = e.target;
-//     setFormData((prev) => ({
-//       ...prev,
-//       [name]: value,
-//     }));
-//   };
-
-//   const handleSubmit = (e: React.FormEvent) => {
-//     e.preventDefault();
-//     // Handle form submission
-//     console.log(formData);
-//   };
-
-//   const timeSlots = Array.from({ length: 24 }, (_, i) => {
-//     const hour = i % 12 || 12;
-//     const ampm = i < 12 ? "AM" : "PM";
-//     return `${hour}:00 ${ampm}`;
-//   });
-
-//   return (
-//     <div className='min-h-screen bg-white p-4 md:p-6'>
-//       {/* Header */}
-//       <div className='mb-6'>
-//         <Link
-//           href='/appointments'
-//           className='inline-flex items-center text-gray-600 hover:text-gray-900'
-//         >
-//           <ChevronLeft className='h-5 w-5' />
-//           <span className='ml-1 text-lg font-semibold'>
-//             Add Appointment Plan
-//           </span>
-//         </Link>
-//       </div>
-
-//       <form onSubmit={handleSubmit} className='max-w-3xl mx-auto space-y-6'>
-//         {/* Image Upload */}
-//         <div className='flex flex-col md:flex-row gap-6'>
-//           <div className='relative w-32 h-32 bg-gray-100 rounded-lg overflow-hidden'>
-//             {imagePreview ? (
-//               <Image
-//                 src={imagePreview || "/placeholder.svg"}
-//                 alt='Preview'
-//                 fill
-//                 className='object-cover'
-//               />
-//             ) : (
-//               <div className='flex flex-col items-center justify-center h-full text-gray-400'>
-//                 <Upload className='h-8 w-8 mb-2' />
-//                 <span className='text-sm'>Upload GIF File</span>
-//               </div>
-//             )}
-//             <input
-//               type='file'
-//               onChange={handleImageChange}
-//               accept='image/*'
-//               className='absolute inset-0 opacity-0 cursor-pointer'
-//             />
-//           </div>
-
-//           <div className='flex-1 space-y-4'>
-//             <input
-//               type='text'
-//               name='workoutName'
-//               placeholder='Workout Name'
-//               value={formData.workoutName}
-//               onChange={handleInputChange}
-//               className='w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-black'
-//             />
-//           </div>
-//         </div>
-
-//         {/* Form Fields */}
-//         <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
-//           <input
-//             type='text'
-//             name='title'
-//             placeholder='Title'
-//             value={formData.title}
-//             onChange={handleInputChange}
-//             className='w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-black'
-//           />
-//           <input
-//             type='number'
-//             name='amount'
-//             placeholder='Amount'
-//             value={formData.amount}
-//             onChange={handleInputChange}
-//             className='w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-black'
-//           />
-//           <select
-//             name='time'
-//             value={formData.time}
-//             onChange={handleInputChange}
-//             className='w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-black appearance-none bg-white'
-//           >
-//             <option value=''>Select Time</option>
-//             {timeSlots.map((time) => (
-//               <option key={time} value={time}>
-//                 {time}
-//               </option>
-//             ))}
-//           </select>
-//         </div>
-
-//         {/* Description */}
-//         <div className='relative'>
-//           <textarea
-//             name='description'
-//             placeholder='Descriptions'
-//             value={formData.description}
-//             onChange={handleInputChange}
-//             rows={4}
-//             className='w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-black resize-none'
-//           />
-//           <button
-//             type='button'
-//             className='absolute right-2 bottom-2 p-1 text-gray-400 hover:text-gray-600'
-//             onClick={() =>
-//               setFormData((prev) => ({ ...prev, description: "" }))
-//             }
-//           >
-//             <svg
-//               xmlns='http://www.w3.org/2000/svg'
-//               fill='none'
-//               viewBox='0 0 24 24'
-//               strokeWidth={1.5}
-//               stroke='currentColor'
-//               className='w-6 h-6'
-//             >
-//               <path
-//                 strokeLinecap='round'
-//                 strokeLinejoin='round'
-//                 d='M12 4.5v15m7.5-7.5h-15'
-//               />
-//             </svg>
-//           </button>
-//         </div>
-
-//         {/* Submit Button */}
-//         <div className='flex justify-end'>
-//           <button
-//             type='submit'
-//             className='px-6 py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors'
-//           >
-//             Save Appointment Plan
-//           </button>
-//         </div>
-//       </form>
-//     </div>
-//   );
-// }
-
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, Plus, Upload } from "lucide-react";
+import { ArrowLeft, ChevronDown, Plus, Upload } from "lucide-react";
 import Container from "@/components/common/Container";
-import { useCreateWorkOutMutation } from "@/redux/features/workout/WorkOutAPI";
+import { set } from "react-hook-form";
+import { useCreateAppointmentMutation } from "@/redux/features/appointmentPlan/AppointmentPlanAPI";
+import toast from "react-hot-toast";
 
 interface WorkoutDay {
   title: string;
@@ -200,19 +19,48 @@ const options = ["Warm-Up", "Main Workout", "Cool Down"];
 
 export default function AddWorkout() {
   const [workoutName, setWorkoutName] = useState("");
-  const [description, setDescription] = useState("");
+  const [price, setPrice] = useState(0);
+  const [image, setImage] = useState<File | null>(null);
+  const [selectedTimes, setSelectedTimes] = useState<string[]>([]);
   const [days, setDays] = useState<WorkoutDay[]>([
     { title: "", duration: "", exerciseId: "" },
   ]);
   const [selected, setSelected] = useState<string[][]>(days.map(() => []));
-
+  const [descriptionList, setDescriptionList] = useState<string[]>([""]);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const [createWorkOut] = useCreateWorkOutMutation();
+  const [createAppointment] = useCreateAppointmentMutation();
+
+  const timeSlots = ["11:00 AM", "12:00 PM", "2:00 PM", "4:00 PM", "8:00 PM"];
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const toggleTimeSelection = (time: string) => {
+    if (selectedTimes.includes(time)) {
+      setSelectedTimes(selectedTimes.filter((t) => t !== time));
+    } else {
+      setSelectedTimes([...selectedTimes, time]);
+    }
+  };
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
+      setImage(file);
       const reader = new FileReader();
       reader.onloadend = () => {
         setImagePreview(reader.result as string);
@@ -221,63 +69,57 @@ export default function AddWorkout() {
     }
   };
 
-  // const addDay = () => {
-  //   setDays([...days, { title: "", duration: "", exerciseId: "" }]);
-  // };
+  const handleDescriptionChange = (index: number, value: string) => {
+    console.log(index, value);
+    let newIngredients = [...descriptionList];
+    newIngredients[index] = value;
+    console.log({ newIngredients });
+    setDescriptionList(newIngredients);
+  };
 
-  const updateDay = (index: number, field: keyof WorkoutDay, value: string) => {
-    const newDays = [...days];
-    newDays[index] = { ...newDays[index], [field]: value };
-    setDays(newDays);
+  const addDescription = () => {
+    setDescriptionList([...descriptionList, ""]);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!workoutName || !description || days.length === 0) {
+    if (!workoutName || !price || selectedTimes.length === 0) {
       alert("Please fill in all required fields");
       return;
     }
 
-    // Transform days data into required format
-    const formattedDays = days.map((day, index) => ({
-      isCompleted: false,
-      day: index + 1,
-      warmUp: {
-        duration: Number(day.duration), // Ensure it's a number
-        exercises: day.exerciseId.split(","), // Convert to an array of IDs
-      },
-      mainWorkout: {
-        duration: Number(day.duration),
-        exercises: day.exerciseId.split(","),
-      },
-      coolDown: {
-        duration: Number(day.duration),
-        exercises: day.exerciseId.split(","),
-      },
-    }));
+    console.log(workoutName, price, selectedTimes, descriptionList);
 
-    const formData = new FormData();
-    formData.append("planName", workoutName);
-    formData.append("description", description);
-    formData.append(
-      "workouts",
-      JSON.stringify(formattedDays) // Sending structured workouts
-    );
+    const formDataToSend = new FormData();
 
-    // Handle image upload
-    const fileInput = document.getElementById(
-      "image-upload"
-    ) as HTMLInputElement;
-    if (fileInput?.files?.[0]) {
-      formData.append("image", fileInput.files[0]);
+    const data = {
+      title: workoutName,
+      price: price,
+      image: "/images/consaltent-1739179485338.jpeg",
+      availableTimes: selectedTimes,
+      description: descriptionList,
+      status: true,
+    };
+
+    formDataToSend.append("data", JSON.stringify(data));
+
+    if (image) {
+      formDataToSend.append("image", image);
     }
 
     try {
-      const response = await createWorkOut(formData).unwrap();
+      const response = await createAppointment(formDataToSend).unwrap();
       if (response?.success) {
+        setWorkoutName("");
+        setPrice(0);
+        setImage(null);
+        setSelectedTimes([]);
+        setDescriptionList([""]);
+        setImagePreview(null);
+
         console.log("Workout Created Successfully:", response);
-        alert(response.message || "Workout created successfully!");
+        toast.success("Appointment created successfully!");
       } else {
         throw new Error(response.message || "Something went wrong.");
       }
@@ -324,7 +166,10 @@ export default function AddWorkout() {
           Add Workout Plan
         </Link>
 
-        <form onSubmit={handleSubmit} className='space-y-6'>
+        <form
+          onSubmit={handleSubmit}
+          className='space-y-6 border rounded-lg p-6'
+        >
           <div className='space-y-8'>
             {/* Image Upload */}
             <div className='relative aspect-squar flex gap-8 w-full max-w-full'>
@@ -384,54 +229,110 @@ export default function AddWorkout() {
                 </div>
                 <div>
                   <label
-                    htmlFor='description'
+                    htmlFor='amount'
                     className='mb-1 block text-sm font-medium text-gray-700'
                   >
-                    Amount
+                    Price
                   </label>
                   <input
-                    id='description'
-                    type='text'
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
+                    id='amount'
+                    type='number'
+                    value={price}
+                    onChange={(e) => setPrice(Number(e.target.value))}
                     className='w-full rounded-md border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-black focus:outline-none focus:ring-1 focus:ring-black'
                     placeholder='Amount'
                     required
                   />
                 </div>
-                <div>
-                  <label
-                    htmlFor='description'
-                    className='mb-1 block text-sm font-medium text-gray-700'
-                  >
+                <div className='w-full max-w-md'>
+                  <label className='block text-sm font-medium text-gray-700 mb-1'>
                     Time
                   </label>
-                  <input
-                    id='description'
-                    type='text'
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                    className='w-full rounded-md border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-black focus:outline-none focus:ring-1 focus:ring-black'
-                    placeholder='Amount'
-                    required
-                  />
+                  <div className='relative' ref={dropdownRef}>
+                    <div
+                      className='w-full px-3 py-2 text-left border rounded-lg bg-white cursor-pointer flex justify-between items-center'
+                      onClick={() => setIsOpen(!isOpen)}
+                    >
+                      <span className='text-gray-900'>
+                        {selectedTimes.length > 0
+                          ? selectedTimes.join(" | ")
+                          : "Select time"}
+                      </span>
+                      <ChevronDown
+                        className={`w-5 h-5 text-gray-500 transition-transform duration-200 ${
+                          isOpen ? "transform rotate-180" : ""
+                        }`}
+                      />
+                    </div>
+
+                    {isOpen && (
+                      <div className='absolute z-10 w-full mt-1 bg-white border rounded-lg shadow-lg'>
+                        <div className='py-1'>
+                          {timeSlots.map((time) => (
+                            <div
+                              key={time}
+                              className={`px-4 py-2 cursor-pointer hover:bg-gray-100 flex items-center ${
+                                selectedTimes.includes(time) ? "bg-blue-50" : ""
+                              }`}
+                              onClick={() => toggleTimeSelection(time)}
+                            >
+                              <div className='flex items-center'>
+                                <input
+                                  type='checkbox'
+                                  checked={selectedTimes.includes(time)}
+                                  onChange={() => {}}
+                                  className='h-4 w-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500'
+                                />
+                                <span className='ml-3 text-black'>{time}</span>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
 
-              <div className='w-full'>
-                <label
-                  htmlFor='workout-name'
-                  className='mb-1 block text-sm font-medium text-gray-700'
-                >
-                  Description
-                </label>
-                <textarea
-                  className='w-full rounded-md border border-gray-300 text-gray-900 p-3 outline-none'
-                  rows={5}
-                  name=''
-                  id=''
-                  placeholder='Description'
-                ></textarea>
+              <div className='w-full space-y-4 mb-6'>
+                <div className='space-y-2'>
+                  <label
+                    htmlFor='ingredient-0'
+                    className='text-[#545454] text-base font-medium'
+                  >
+                    Description
+                  </label>
+                  <div className='space-y-2'>
+                    {descriptionList.map((ingredient, index) => (
+                      <div
+                        key={index}
+                        className='relative flex items-center gap-6'
+                      >
+                        <input
+                          id={`ingredient-${index}`}
+                          value={ingredient}
+                          onChange={(e) =>
+                            handleDescriptionChange(index, e.target.value)
+                          }
+                          placeholder={`Enter a description ${index + 1}`}
+                          className='flex-1 rounded-lg border border-gray-300 p-3 outline-none focus:border-blue-500 text-gray-900'
+                        />
+                        <div className='absolute right-2 top-1/2 -translate-y-1/2 flex items-center justify-center'>
+                          {index === descriptionList.length - 1 && (
+                            <button
+                              type='button'
+                              onClick={addDescription}
+                              className='bg-[#01336F] rounded-full w-10 h-10 flex items-center justify-center'
+                            >
+                              <Plus className='h-6 w-6 text-white' />
+                              <span className='sr-only'>Add ingredient</span>
+                            </button>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
