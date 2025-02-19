@@ -13,7 +13,6 @@ import { useCreateNutritionMutation } from "@/redux/features/nutritions/Nutritio
 
 export default function AddMealPlan() {
   // const [ingredients, setIngredients] = useState<string[]>([]);
-  const [recipeContent, setRecipeContent] = useState("");
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const editor = useRef(null);
   const [content, setContent] = useState("");
@@ -102,7 +101,23 @@ export default function AddMealPlan() {
       const response = await createNutrition(formDataToSend).unwrap();
       console.log("Workout added successfully:", response);
       toast.success("Workout added successfully!");
-      // router.push("/workout");
+
+      if (response?.success) {
+        setFormData({
+          title: "",
+          image: null,
+          calories: 0,
+          protein: 0,
+          carbohydrate: 0,
+          fat: 0,
+          fiber: 0,
+          rating: 0,
+          reviewsCount: 358,
+          category: [],
+          ingredients: [],
+          instruction: "",
+        });
+      }
     } catch (error) {
       console.error("Failed to add workout:", error);
       alert("Failed to add workout. Please try again.");

@@ -60,8 +60,18 @@ export default function AddExercise() {
 
     try {
       const response = await postExercise(formDataToSend).unwrap();
-      console.log("Exercise added successfully:", response);
-      toast.success("Exercise added successfully!");
+
+      if (response.success) {
+        toast.success("Exercise added successfully!");
+
+        setFormData({
+          exerciseName: "",
+          description: "",
+          gymEquipmentNeeded: "no",
+          gifImage: null,
+          imagePreview: "",
+        });
+      }
     } catch (error) {
       console.error("Failed to add exercise:", error);
       alert("Failed to add exercise. Please try again.");

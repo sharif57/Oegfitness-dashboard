@@ -20,6 +20,10 @@ interface PaymentDetails {
   createdAt?: string;
   transactionId?: string;
   _id?: string;
+  transactionDetails?: {
+    status?: string;
+    last4?: string;
+  };
 }
 
 const RecentTransection = () => {
@@ -86,7 +90,7 @@ const RecentTransection = () => {
 
             <div className='flex flex-col space-y-4'>
               <div className='flex items-center justify-between border-b pb-2'>
-                <p className='text-lg font-medium text-[#1A1918]'>User ID:</p>
+                <p className='text-lg font-medium text-[#1A1918]'>User ID</p>
                 <p className='text-lg text-[#737163]'>
                   {singleUserPaymentDetails?.userId?._id ? (
                     singleUserPaymentDetails?.userId?._id
@@ -96,7 +100,7 @@ const RecentTransection = () => {
                 </p>
               </div>
               <div className='flex items-center justify-between border-b pb-2'>
-                <p className='text-lg font-medium text-[#1A1918]'>Date:</p>
+                <p className='text-lg font-medium text-[#1A1918]'>Date</p>
                 <p className='text-lg text-[#737163]'>
                   {singleUserPaymentDetails?.createdAt?.split("T")[0] ? (
                     singleUserPaymentDetails?.createdAt?.split("T")[0]
@@ -106,7 +110,19 @@ const RecentTransection = () => {
                 </p>
               </div>
               <div className='flex items-center justify-between border-b pb-2'>
-                <p className='text-lg font-medium text-[#1A1918]'>User Name:</p>
+                <p className='text-lg font-medium text-[#1A1918]'>
+                  A/C number
+                </p>
+                <p className='text-lg text-[#737163]'>
+                  {singleUserPaymentDetails?.transactionDetails?.last4 ? (
+                    <>{`**** **** **** ${singleUserPaymentDetails?.transactionDetails?.last4}`}</>
+                  ) : (
+                    <span>Loading ....</span>
+                  )}
+                </p>
+              </div>
+              <div className='flex items-center justify-between border-b pb-2'>
+                <p className='text-lg font-medium text-[#1A1918]'>User Name</p>
                 <p className='text-lg text-[#737163]'>
                   {singleUserPaymentDetails?.userId?.name ? (
                     singleUserPaymentDetails?.userId?.name
@@ -117,12 +133,24 @@ const RecentTransection = () => {
               </div>
               <div className='flex items-center justify-between border-b pb-2'>
                 <p className='text-lg font-medium text-[#1A1918]'>
-                  Transaction Amount:
+                  Transaction Amount
                 </p>
                 <p className='text-lg text-[#737163]'>
                   $
                   {singleUserPaymentDetails?.appointmentPrice ? (
                     singleUserPaymentDetails?.appointmentPrice
+                  ) : (
+                    <span>Loading ....</span>
+                  )}
+                </p>
+              </div>
+              <div className='flex items-center justify-between border-b pb-2'>
+                <p className='text-lg font-medium text-[#1A1918]'>
+                  Transaction Status
+                </p>
+                <p className='text-lg text-[#737163]'>
+                  {singleUserPaymentDetails?.transactionDetails?.status ? (
+                    singleUserPaymentDetails?.transactionDetails?.status
                   ) : (
                     <span>Loading ....</span>
                   )}
