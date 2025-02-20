@@ -208,7 +208,7 @@ export default function LoginPage() {
       if (response.success) {
         localStorage.setItem("accessToken", response.data.accessToken);
         localStorage.setItem("refreshToken", response.data.refreshToken);
-        localStorage.setItem("user", JSON.stringify(response.data.user));
+        // localStorage.setItem("user", JSON.stringify(response.data.user));
 
         toast.success("Login Successful!", {
           autoClose: 1500,
@@ -274,7 +274,7 @@ export default function LoginPage() {
             </p>
           </div>
 
-          <form onSubmit={handleSubmit(handleSubmitForm)} className='space-y-6'>
+          <form onSubmit={handleSubmit(handleSubmitForm)} className='space-y-6 text-black'>
             <div className='space-y-4'>
               <div className='relative'>
                 <input
@@ -312,7 +312,7 @@ export default function LoginPage() {
                 <span className='text-lg text-[#737163]'>Remember me</span>
               </label>
               <Link
-                href='/forgot-password'
+                href='/forgot'
                 className='text-lg font-medium text-[#1A1918] hover:underline'
               >
                 Forgot password?
@@ -326,15 +326,7 @@ export default function LoginPage() {
               Sign In
             </button>
 
-            <p className='text-center text-base text-[#3D3D3A]'>
-              Don&apos;t have an account?{" "}
-              <Link
-                href='/signup'
-                className='text-lg font-medium text-[#01336F] hover:underline'
-              >
-                Sign Up
-              </Link>
-            </p>
+         
           </form>
         </div>
       </div>

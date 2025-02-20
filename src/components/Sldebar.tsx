@@ -15,6 +15,7 @@ import {
   LogOut,
 } from "lucide-react";
 import { usePathname } from "next/navigation";
+import Swal from "sweetalert2";
 
 const navigation = [
   {
@@ -78,20 +79,53 @@ export function Sidebar() {
   const pathname = usePathname();
 
   if (pathname == "/login" || pathname == "/register") return null;
+  if (pathname == "/forgot") return null;
+  if (pathname == "/resetotp") return null;
+  if (pathname == "/createpass") return null;
+  
+
+
+  const handleLogOut = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You will be logged out!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, Logout!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Remove tokens only if confirmed
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+  
+        Swal.fire({
+          title: "Logged Out",
+          text: "You have been logged out successfully.",
+          icon: "success"
+        }).then(() => {
+          // Redirect to login page after confirmation
+          window.location.href = "/login";
+        });
+      }
+    });
+  };
+
 
   return (
-    <div className='flex h-full min-h-screen w-64 fixed top-0 left-0 flex-col bg-[#002B5B] text-white'>
-      <div className='p-4'>
+    <div className="flex h-full min-h-screen w-64 fixed top-0 left-0 flex-col bg-[#002B5B] text-white">
+      <div className="p-4">
         <Image
-          src='/dashboard/logo.png'
-          alt='OEG Stretching Strength'
+          src="/dashboard/logo.png"
+          alt="OEG Stretching Strength"
           width={220}
           height={56}
-          className='h-auto w-auto'
+          className="h-auto w-auto"
         />
       </div>
 
-      <nav className='flex-1 space-y-2 px-2 py-4'>
+      <nav className="flex-1 space-y-2 px-2 py-4">
         {navigation.map((item) => (
           <Link
             key={item.name}
@@ -102,18 +136,21 @@ export function Sidebar() {
                 : ""
             } hover:bg-blue-900 hover:text-white`}
           >
-            <item.icon className='mr-3 h-5 w-5' />
+            <item.icon className="mr-3 h-5 w-5" />
             {/* <Image src={item.icon.src} alt={item.name} width={24} height={24} /> */}
             {item.name}
           </Link>
         ))}
       </nav>
 
-      <div className='p-4'>
-        <button className='w-full flex items-center justify-center gap-3 rounded-lg bg-[#BF0C0A] px-4 py-4 text-sm font-medium hover:bg-red-700'>
-          <LogOut /> Logout
-        </button>
-      </div>
+      <div className="p-4">
+      <button
+        onClick={handleLogOut}
+        className="w-full flex items-center justify-center gap-3 rounded-lg bg-[#BF0C0A] px-4 py-4 text-sm font-medium text-white hover:bg-red-700"
+      >
+        <LogOut /> Logout
+      </button>
+    </div>
     </div>
   );
 }

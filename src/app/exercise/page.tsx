@@ -61,6 +61,8 @@ export default function ExercisePage() {
 
   console.log(exercisesData?.data);
 
+  const IMAGE =process.env.NEXT_PUBLIC_API_KEY
+  console.log(IMAGE)
   return (
     <div className='min-h-screen bg-gray-50 p-4 md:p-6'>
       <Container>
@@ -87,7 +89,9 @@ export default function ExercisePage() {
               </h3>
               <div className='relative h-[200px] w-full rounded-lg mt-2.5'>
                 <Image
-                  src={exercise?.gifImage || "/workout.jpg"}
+                  // src={exercise?.gifImage || "/workout.jpg"}
+                  src={`${IMAGE}${exercise?.gifImage}`}
+
                   alt={exercise?.exerciseName}
                   fill
                   className='object-cover rounded-lg'

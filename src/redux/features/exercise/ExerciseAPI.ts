@@ -2,6 +2,8 @@ import baseAPI from "@/redux/api/baseAPI";
 
 const ExerciseAPI = baseAPI.injectEndpoints({
   endpoints: (builder) => ({
+
+    
     getAllExercises: builder.query<any, void>({
       query: () => ({
         url: "/exercise/all-exercise",

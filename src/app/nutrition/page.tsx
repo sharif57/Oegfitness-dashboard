@@ -75,15 +75,14 @@ export default function NutritionPlan() {
               key={item._id}
               className='overflow-hidden rounded-lg bg-white shadow-md transition-transform hover:scale-[1.02]'
             >
-              {item?.image}
+              
               <div className='relative h-64 w-full'>
                 <Image
                   src={`${IMAGE_URL}${item?.image}` || "/placeholder.svg"}
                   width={600}
                   height={700}
                   alt='Meal Plan'
-                  className='h-full w-full object-cover'
-                />
+                  className='h-full w-full object-cover' />
               </div>
               <div className='p-4'>
                 <div className='mb-2 flex items-center justify-between'>
