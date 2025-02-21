@@ -1,8 +1,7 @@
 "use client";
 
-import type { MenuProps } from "antd";
 import Image from "next/image";
-import { EllipsisVertical, Info } from "lucide-react";
+import { EllipsisVertical } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
 interface WorkoutItem {
@@ -20,19 +19,7 @@ interface WorkoutCardProps {
 export default function WorkoutCard({ workout }: WorkoutCardProps) {
   const [open, setOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
-  const IMAGE_URL = "http://115.127.156.13:3005/";
 
-  const items: MenuProps["items"] = [
-    {
-      key: "1",
-      label: "Edit",
-    },
-    {
-      key: "2",
-      label: "Delete",
-      danger: true,
-    },
-  ];
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {

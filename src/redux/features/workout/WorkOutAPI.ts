@@ -15,10 +15,6 @@ const WorkOutAPI = baseAPI.injectEndpoints({
         url: "/workout-plan/create-workout-plan",
         method: "POST",
         body: create,
-        // headers: {
-        //   Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        //   // "Content-Type": "application/json",
-        // },
       }),
       invalidatesTags: ["WorkOut"],
     }),

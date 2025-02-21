@@ -33,31 +33,7 @@ export default function AppointmentPlan() {
     return <div>Error</div>;
   }
 
-  const plans = [
-    {
-      title: "Initial Consultation",
-      price: 500,
-      image: "/apointment-plan.png",
-      features: [
-        "Analyze your current eating habits.",
-        "Personal nutrition goals.",
-        "Providing healthy meal plans",
-        "Advice related to lifestyle and nutrition.",
-      ],
-    },
-    {
-      title: "Talk To Fitness",
-      price: 100,
-      image: "/apointment-plan2.png",
-      features: [
-        "Analyze your current eating habits.",
-        "Personal nutrition goals.",
-        "Providing healthy meal plans",
-        "Advice related to lifestyle and nutrition.",
-      ],
-      //   description: "Consultation to create program for desired goal",
-    },
-  ];
+
 
   const handlePageSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -85,7 +61,7 @@ export default function AppointmentPlan() {
         </div>
 
         {/* Plans Grid */}
-        <div className='grid gap-6 md:grid-cols-2'>
+        <div className='grid gap-6 md:grid-cols-3 lg:grid-cols-3'>
           {appointmentsPlan?.data.length > 0 &&
             appointmentsPlan?.data?.map((plan: IAppointmentPlan) => (
               <div

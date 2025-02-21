@@ -19,7 +19,16 @@ const EarningAPI = baseAPI.injectEndpoints({
       invalidatesTags: ["Earning"],
     }),
 
+    packageDetails: builder.query({
+      query: (_id) => ({
+        url: `/package/package-details/${_id}`,
+        method: "GET",
+      }),
+      providesTags: ["Earning"], // Marks the fetched data with the "Question" tag
+    }),
+
+
   }),
 });
 
-export const { useGetAllPackageQuery, useUpdatePackageMutation } = EarningAPI;
+export const { useGetAllPackageQuery, useUpdatePackageMutation, usePackageDetailsQuery } = EarningAPI;

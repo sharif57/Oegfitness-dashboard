@@ -104,7 +104,7 @@ const Header = () => {
   
   return (
     <header className="sticky top-0 z-40 bg p-4 text-white">
-      <div className="flex items-center justify-between bg-[#01336F] py-5 px-3">
+      <div className="flex items-center justify-between bg-[#01336F] py-4 px-3">
         <div className="flex items-center space-x-4">
           {/* <Image src="/logo.png" alt="OEG" width={40} height={40} className="h-8 w-auto lg:hidden" /> */}
           <div>

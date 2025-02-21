@@ -1,5 +1,4 @@
 import baseAPI from "@/redux/api/baseAPI";
-import { create } from "domain";
 
 const AppointmentPlanAPI = baseAPI.injectEndpoints({
   endpoints: (builder) => ({
@@ -19,12 +18,18 @@ const AppointmentPlanAPI = baseAPI.injectEndpoints({
       }),
     }),
 
-    
+    getAllBookAppointments: builder.query<any, void>({
+      query: () => ({
+        url: "/book-appointment/all-book-appointment",
+        method: "GET",
+      }),
+      providesTags: ["Appointments"],
+    }),
 
   }),
 });
 
-export const { useGetAllAppointmentsQuery, useCreateAppointmentMutation } =
+export const { useGetAllAppointmentsQuery, useCreateAppointmentMutation , useGetAllBookAppointmentsQuery } =
   AppointmentPlanAPI;
 
 export default AppointmentPlanAPI;

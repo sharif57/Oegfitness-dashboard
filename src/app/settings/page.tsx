@@ -49,26 +49,40 @@ export default function SettingsPage() {
             </span>
           </button>
         </div>
-        <div className="border rounded-lg">
-          <button className="w-full flex items-center justify-between p-4 hover:bg-gray-50 transition-colors">
-            <span className="text-base font-medium text-gray-700">
-              Terms & Condition
-            </span>
-          </button>
+
+        <div>
+          <Link href={"/settings/terms"}>
+            <div className="border rounded-lg">
+              <button className="w-full flex items-center justify-between p-4 hover:bg-gray-50 transition-colors">
+                <span className="text-base font-medium text-gray-700">
+                  Terms & Condition
+                </span>
+              </button>
+            </div>
+          </Link>
         </div>
-        <div className="border rounded-lg">
-          <button className="w-full flex items-center justify-between p-4 hover:bg-gray-50 transition-colors">
-            <span className="text-base font-medium text-gray-700">
-              Privacy Policy
-            </span>
-          </button>
+        <div>
+          <Link href={"/settings/privacy"}>
+            <div className="border rounded-lg">
+              <button className="w-full flex items-center justify-between p-4 hover:bg-gray-50 transition-colors">
+                <span className="text-base font-medium text-gray-700">
+                  Privacy Policy
+                </span>
+              </button>
+            </div>
+          </Link>
         </div>
-        <div className="border rounded-lg">
-          <button className="w-full flex items-center justify-between p-4 hover:bg-gray-50 transition-colors">
-            <span className="text-base font-medium text-gray-700">
-              About Us
-            </span>
-          </button>
+
+        <div>
+          <Link href={"/settings/about"}>
+            <div className="border rounded-lg">
+              <button className="w-full flex items-center justify-between p-4 hover:bg-gray-50 transition-colors">
+                <span className="text-base font-medium text-gray-700">
+                  About Us
+                </span>
+              </button>
+            </div>
+          </Link>
         </div>
       </div>
     </div>

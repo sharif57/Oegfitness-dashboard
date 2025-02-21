@@ -118,6 +118,7 @@ interface PackageData {
   name: string;
   unitAmount: number;
   description: string[];
+  interval: string;
 }
 
 type MembershipPlanType = {
@@ -125,6 +126,7 @@ type MembershipPlanType = {
   title: string;
   price: string;
   features: string[];
+  interval: string;
 };
 
 const Membership: React.FC = () => {
@@ -138,7 +140,7 @@ const Membership: React.FC = () => {
     data?.data?.map((plan: PackageData) => ({
       id: plan._id,
       title: plan.name,
-      price: `$${plan.unitAmount}/month`, // Convert unitAmount to dollars
+      price: `$${plan.unitAmount}/${plan.interval}`, // Convert unitAmount to dollars
       features: plan.description,
     })) || [];
 

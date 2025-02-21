@@ -55,7 +55,7 @@ const navigation = [
     img: "/sidebar/x.svg",
   },
   {
-    name: "Appointment",
+    name: "Book Appointment",
     href: "/appointment",
     icon: Calendar,
     img: "/sidebar/x.svg",

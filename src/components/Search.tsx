@@ -252,19 +252,24 @@ export default function Search() {
       const planData = extractJsonData(gptResponseText);
       console.log(planData , 'gpt-3.5-turbo')
 
-    //   if (!planData) {
-    //     throw new Error("Invalid workout plan data received.");
-    //   }
+      if (!planData) {
+        throw new Error("Invalid workout plan data received.");
+      }
 
-    //   const formData = new FormData();
-    //   formData.append("planName", planData.planName || "Workout Plan");
-    //   formData.append("description", planData.description || "Generated workout plan");
-    //   formData.append("workouts", JSON.stringify(planData.workouts));
-    //   formData.append("createdBy", user.role);
-    //   formData.append("image", exerciseData?.data?.[0]?.image || "default_image_url");
+      const formData = new FormData( planData );
+      formData.append("planName", planData.planName || "Workout Plan");
+      formData.append("description", planData.description || "Generated workout plan");
+      formData.append("workouts", JSON.stringify(planData.workouts));
+      formData.append("createdBy", user.role);
+      formData.append("image", exerciseData?.data?.[0]?.image || "default_image_url");
+      console.log(formData,'formData')
 
-    //   const result = await createWorkPlan(formData).unwrap();
-    //   router.push(`/exercise/${result.data._id}`);
+      const result = await createWorkPlan(formData).unwrap();
+      router.push(`/exercise/${result.data._id}`);
+      console.log(result)
+
+
+
     } catch (err) {
       console.error("Error creating workout plan:", err);
       toast.error("Failed to generate workout plan. Max 7 days a llowed.");
