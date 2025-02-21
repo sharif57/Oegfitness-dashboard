@@ -17,9 +17,7 @@
 //   console.log(user,'user data')
 
 //   const [createWorkPlan] = useCreateWorkPlanMutation();
-  
-  
-  
+
 //   const GPT_API = process.env.NEXT_PUBLIC_API_KEY_GPT_KEY;
 //   console.log(GPT_API,'GPT_API')
 
@@ -117,7 +115,7 @@
 //       - Phone: ${user.phone}
 //       - Role: ${user.role}
 //       - Goal: ${inputMessage}
-    
+
 //       make a workout plan based on the Goal. Check if any days type info given in goal (inputMessage) use that otherwise use 10 days.
 
 //       This is available exercise data: ${JSON.stringify(
@@ -149,7 +147,7 @@
 //   rating: { type: Number, default: 5 },
 //   image: { type: String, default: 'https://i.ibb.co.com/fd0nMfrB/fitness.png' },
 //   workouts: { type: [DayWorkoutSchema], required: true },
-// })  
+// })
 //     `;
 //   };
 
@@ -176,7 +174,7 @@
 //           value={inputMessage}
 //           disabled={isLoading}
 //           onChange={(e) => setInputMessage(e.target.value)}
-//           onKeyDown={onKeyPress} 
+//           onKeyDown={onKeyPress}
 //           placeholder="Enter your prompt.. (Max 7 days)"
 //           className="bg-transparent w-full  text-white placeholder-white/50 outline-none px-2 py-6"
 //         />
@@ -202,10 +200,12 @@
 //   );
 // }
 
-
 "use client";
 import { useUserProfileQuery } from "@/redux/features/users/UserAPI";
-import { useCreateWorkPlanMutation, useGetAllWorkOutQuery } from "@/redux/features/workout/WorkOutAPI";
+import {
+  useCreateWorkPlanMutation,
+  useGetAllWorkOutQuery,
+} from "@/redux/features/workout/WorkOutAPI";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
@@ -222,16 +222,85 @@ export default function Search() {
   const [createWorkPlan] = useCreateWorkPlanMutation();
   const GPT_API = process.env.NEXT_PUBLIC_API_KEY_GPT_KEY;
 
+  // const handleSendMessage = async () => {
+  //   if (!user) {
+  //     toast.error("User data is missing.");
+  //     return;
+  //   }
+
+  //   setLoading(true);
+
+  //   try {
+  //     const response = await fetch(
+  //       "https://api.openai.com/v1/chat/completions",
+  //       {
+  //         method: "POST",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           Authorization: `Bearer ${GPT_API}`,
+  //         },
+  //         body: JSON.stringify({
+  //           model: "gpt-3.5-turbo",
+  //           messages: [
+  //             {
+  //               role: "system",
+  //               content: "You are a helpful AI fitness assistant.",
+  //             },
+  //             { role: "user", content: createWorkoutPlanMessage() },
+  //           ],
+  //         }),
+  //       }
+  //     );
+
+  //     const data = await response.json();
+  //     console.log(data);
+  //     const gptResponseText = data?.choices?.[0]?.message?.content || "{}";
+  //     const planData = extractJsonData(gptResponseText);
+  //     console.log(planData, "gpt-3.5-turbo");
+
+  //     if (!planData) {
+  //       throw new Error("Invalid workout plan data received.");
+  //     }
+
+  //     const formData = new FormData();
+  //     formData.append("planName", planData.planName || "Workout Plan");
+  //     formData.append(
+  //       "description",
+  //       planData.description || "Generated workout plan"
+  //     );
+  //     formData.append("workouts", JSON.stringify(planData.workouts));
+  //     formData.append("createdBy", user.role);
+  //     formData.append(
+  //       "image",
+  //       exerciseData?.data?.[0]?.image || "default_image_url"
+  //     );
+  //     console.log(formData, "formData");
+
+  //     const result = await createWorkPlan(formData).unwrap();
+  //     router.push(`/exercise/${result.data._id}`);
+  //     console.log(result);
+  //   } catch (err) {
+  //     console.error("Error creating workout plan:", err);
+  //     toast.error("Failed to generate workout plan. Max 7 days a llowed.");
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+
+
   const handleSendMessage = async () => {
     if (!user) {
-      toast.error("User data is missing.");
-      return;
+      return; // Handle error if user is missing
     }
 
     setLoading(true);
 
+    const url = "https://api.openai.com/v1/chat/completions";
+    const workoutPlanMessage = createWorkoutPlanMessage();
+
     try {
-      const response = await fetch("https://api.openai.com/v1/chat/completions", {
+      // Fetch GPT response
+      const response = await fetch(url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -240,39 +309,44 @@ export default function Search() {
         body: JSON.stringify({
           model: "gpt-3.5-turbo",
           messages: [
-            { role: "system", content: "You are a helpful AI fitness assistant." },
-            { role: "user", content: createWorkoutPlanMessage() },
+            {
+              role: "system",
+              content: "You are a helpful AI fitness assistant.",
+            },
+            { role: "user", content: workoutPlanMessage },
+            
           ],
         }),
       });
 
       const data = await response.json();
-      console.log(data)
       const gptResponseText = data?.choices?.[0]?.message?.content || "{}";
+
       const planData = extractJsonData(gptResponseText);
-      console.log(planData , 'gpt-3.5-turbo')
+      console.log(planData)
+
 
       if (!planData) {
-        throw new Error("Invalid workout plan data received.");
+        throw new Error("Failed to parse GPT response into valid JSON.");
       }
 
-      const formData = new FormData( planData );
-      formData.append("planName", planData.planName || "Workout Plan");
-      formData.append("description", planData.description || "Generated workout plan");
-      formData.append("workouts", JSON.stringify(planData.workouts));
-      formData.append("createdBy", user.role);
-      formData.append("image", exerciseData?.data?.[0]?.image || "default_image_url");
-      console.log(formData,'formData')
+      const jsonData = JSON.stringify(planData);
+      const formData = new FormData();
+      formData.append("data", jsonData);
+      formData.append("image", exerciseData.data[0].image);
 
+      console.log(formData)
+
+      // Save the generated plan to the database
       const result = await createWorkPlan(formData).unwrap();
-      router.push(`/exercise/${result.data._id}`);
+      router.push(`/workout/add-workout/${result.data._id}`);
       console.log(result)
-
-
-
     } catch (err) {
-      console.error("Error creating workout plan:", err);
-      toast.error("Failed to generate workout plan. Max 7 days a llowed.");
+      console.error("Error:", err);
+      toast.error("Fail to generate your plan. don't suggest more than 7 days", {
+        position: "top-center",
+        autoClose: 2000, // Close the toast after 5 seconds
+      });
     } finally {
       setLoading(false);
     }
@@ -300,7 +374,9 @@ export default function Search() {
       
       Create a workout plan for the user. If a specific duration is not mentioned, use 10 days.
       
-      Available exercises: ${JSON.stringify(exerciseData?.data?.map((ex) => ex._id) || [])}
+      Available exercises: ${JSON.stringify(
+        exerciseData?.data?.map((ex) => ex._id) || []
+      )}
       
       The response must be a JSON following this schema:
       {
@@ -337,9 +413,19 @@ export default function Search() {
           className="bg-[#01336F] text-white lg:px-10 px-4 lg:py-6 py-6 rounded-r-lg flex items-center justify-center"
           disabled={loading}
         >
-          {loading ? <div className="loader-inner"><div className="loader-block"></div></div> : "Enter"}
+          {loading ? (
+            <div className="loader-inner">
+              <div className="loader-block"></div>
+              <div className="loader-block"></div>
+              <div className="loader-block"></div>
+            </div>
+          ) : (
+            "Enter"
+          )}
         </button>
       </div>
+
+
     </div>
   );
 }

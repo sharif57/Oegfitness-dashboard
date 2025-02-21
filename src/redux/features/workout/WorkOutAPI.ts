@@ -4,7 +4,7 @@ const WorkOutAPI = baseAPI.injectEndpoints({
   endpoints: (builder) => ({
     getAllWorkOut: builder.query<any, void>({
       query: () => ({
-        url: "/workout-plan/all-workout-plan",
+        url: "/exercise/all",
         method: "GET",
       }),
       providesTags: ["WorkOut"],
@@ -19,7 +19,17 @@ const WorkOutAPI = baseAPI.injectEndpoints({
       invalidatesTags: ["WorkOut"],
     }),
 
+    workPlanDetails: builder.query({
+      query: (_id) => ({
+        url: `/workout-plan/workout-plan-details/${_id}`,
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      }),
+      providesTags: ["WorkOut"], // Marks the fetched data with the "Question" tag
+    }),
   }),
 });
 
-export const { useGetAllWorkOutQuery, useCreateWorkPlanMutation } = WorkOutAPI;
+export const { useGetAllWorkOutQuery, useCreateWorkPlanMutation , useWorkPlanDetailsQuery} = WorkOutAPI;

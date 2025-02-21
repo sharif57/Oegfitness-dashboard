@@ -1,6 +1,11 @@
+'use client'
 import Search from "@/components/Search";
 
+
 export default function PlanOverview() {
+
+
+
   return (
     <div>
       {" "}
@@ -24,6 +29,8 @@ export default function PlanOverview() {
           </div>
         </div>
       </div>
+
+        
     </div>
   );
 }
