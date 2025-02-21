@@ -23,6 +23,8 @@ export default function WorkoutPlan() {
 
   // Ensure data exists before slicing
   const workoutList = workouts?.data || [];
+
+  console.log(workoutList);
   const totalWorkouts = workoutList.length;
 
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;

@@ -29,7 +29,17 @@ const WorkOutAPI = baseAPI.injectEndpoints({
       }),
       providesTags: ["WorkOut"], // Marks the fetched data with the "Question" tag
     }),
+
+    updateWorkPlan: builder.mutation({
+      query: (update) => ({
+        url: `/workout-plan/update-workout-plan/${update._id}`,
+        method: "POST",
+        body: update,
+      }),
+      invalidatesTags: ["WorkOut"],
+    }),
+
   }),
 });
 
-export const { useGetAllWorkOutQuery, useCreateWorkPlanMutation , useWorkPlanDetailsQuery} = WorkOutAPI;
+export const { useGetAllWorkOutQuery, useCreateWorkPlanMutation , useWorkPlanDetailsQuery, useUpdateWorkPlanMutation} = WorkOutAPI;
