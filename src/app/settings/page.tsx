@@ -42,13 +42,13 @@ export default function SettingsPage() {
           </div>
         </Link>
 
-        <div className="border rounded-lg">
+        {/* <div className="border rounded-lg">
           <button className="w-full flex items-center justify-between p-4 hover:bg-gray-50 transition-colors">
             <span className="text-base font-medium text-gray-700">
               Change Password
             </span>
           </button>
-        </div>
+        </div> */}
 
         <div>
           <Link href={"/settings/terms"}>

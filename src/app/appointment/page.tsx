@@ -27,7 +27,7 @@
 //   isError,
 // } = useGetAllBookAppointmentsQuery();
 
-//   // Extract actual appointment data
+  // Extract actual appointment data
 //   const appointmentList = appointments?.data || [];
 //   console.log(appointmentList);
 

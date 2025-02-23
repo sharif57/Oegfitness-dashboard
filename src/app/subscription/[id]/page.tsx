@@ -517,6 +517,7 @@ const PackageForm = () => {
             type="text"
             placeholder="Enter Package Name"
             value={packageName}
+            disabled
             onChange={(e) => setPackageName(e.target.value)}
             className="w-full p-2 border rounded"
           />

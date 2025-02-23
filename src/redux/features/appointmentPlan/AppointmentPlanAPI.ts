@@ -26,10 +26,26 @@ const AppointmentPlanAPI = baseAPI.injectEndpoints({
       providesTags: ["Appointments"],
     }),
 
+    updateAppointment: builder.mutation({
+      query: ({ id, formData }) => ({
+        url: `/appointment/update-appointment/${id}`,
+        method: "POST",
+        body: formData,
+      }),
+      invalidatesTags: ["Appointments"],
+    }),
+
+    appointmentDetails: builder.query({
+      query: (_id) => ({
+        url: `/appointment/appointment-details/${_id}`,
+        method: "GET",
+      }),
+    })
+
   }),
 });
 
-export const { useGetAllAppointmentsQuery, useCreateAppointmentMutation , useGetAllBookAppointmentsQuery } =
+export const { useGetAllAppointmentsQuery, useCreateAppointmentMutation , useGetAllBookAppointmentsQuery, useUpdateAppointmentMutation  , useAppointmentDetailsQuery} =
   AppointmentPlanAPI;
 
 export default AppointmentPlanAPI;

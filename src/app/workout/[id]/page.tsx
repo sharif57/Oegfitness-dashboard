@@ -1,15 +1,20 @@
-'use client';
-import { useState } from 'react';
-import { useUpdateWorkPlanMutation } from '@/redux/features/workout/WorkOutAPI';
-import { useParams } from 'next/navigation';
+"use client";
+import { useState } from "react";
+import { useUpdateWorkPlanMutation } from "@/redux/features/workout/WorkOutAPI";
+import { useParams, useRouter } from "next/navigation";
 
 const WorkoutForm = () => {
-  const { id: workoutId } = useParams(); // Extract _id from URL
+  // const { id: workoutId } = useParams(); // Extract _id from URL
+  const router = useRouter();
+  const { id: workoutId } = useParams<{ id: string }>(); // Extract package ID from URL
+  console.log(workoutId);
+
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [imageFile, setImageFile] = useState<File | null>(null);
-  const [planName, setPlanName] = useState<string>('');
-  const [description, setDescription] = useState<string>('');
-  const [updateWorkPlan, { isLoading, isError, isSuccess }] = useUpdateWorkPlanMutation();
+  const [planName, setPlanName] = useState<string>("");
+  const [description, setDescription] = useState<string>("");
+  const [updateWorkPlan, { isLoading, isError, isSuccess }] =
+    useUpdateWorkPlanMutation();
 
   // Handle Image Upload
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -24,49 +29,64 @@ const WorkoutForm = () => {
     }
   };
 
-  // Handle Form Submission
+
   const handleSubmit = async () => {
     if (!workoutId) {
-      alert('Workout ID is missing.');
-      console.error('Error: Workout ID is undefined.');
+      alert("Workout ID is missing.");
+      console.error("Error: Workout ID is undefined.");
       return;
     }
 
     if (!planName || !description || !imageFile) {
-      alert('Please fill all fields and upload an image.');
+      alert("Please fill all fields and upload an image.");
       return;
     }
 
-    // ✅ Use FormData for file uploads (Multer expects FormData)
     const formData = new FormData();
-    formData.append('planName', planName);
-    formData.append('description', description);
-    formData.append('image', imageFile);
+
+    const values = JSON.stringify({
+      planName: planName,
+      description: description,
+    });
+
+    formData.append("data", values);
+    formData.append("image", imageFile);
 
     try {
       await updateWorkPlan({ id: workoutId, formData }).unwrap();
-      alert('Workout updated successfully!');
+      router.push("/workout");
+      alert("Workout updated successfully!");
+
     } catch (error) {
-      console.error('Update failed:', error);
-      alert('Failed to update workout.');
+      console.error("Update failed:", error);
+      alert("Failed to update workout.");
     }
   };
 
   return (
-    <div className="p-6 bg-white shadow-md rounded-lg container mx-auto">
+    <div className="p-6 bg-white shadow-md rounded-lg container mx-auto text-black">
       {/* Image Upload Section */}
       <div className="flex items-start gap-6">
         <div className="w-32 h-32 relative">
           <label className="cursor-pointer flex items-center justify-center w-full h-full bg-gray-200 rounded-md border border-gray-300 overflow-hidden">
             {imagePreview ? (
-              <img src={imagePreview} alt="Preview" className="w-full h-full object-cover" />
+              <img
+                src={imagePreview}
+                alt="Preview"
+                className="w-full h-full object-cover"
+              />
             ) : (
               <div className="flex flex-col items-center text-gray-500">
                 <span className="text-2xl">📷</span>
                 <span className="text-sm">Upload Gif File</span>
               </div>
             )}
-            <input type="file" accept="image/*" onChange={handleImageUpload} className="hidden" />
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleImageUpload}
+              className="hidden"
+            />
           </label>
         </div>
         <div>
@@ -79,7 +99,9 @@ const WorkoutForm = () => {
       <div className="mt-6 p-4 border rounded-md bg-gray-50">
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700">Workout Name</label>
+            <label className="block text-sm font-medium text-gray-700">
+              Workout Name
+            </label>
             <input
               type="text"
               placeholder="Enter a name"
@@ -89,7 +111,9 @@ const WorkoutForm = () => {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">Description</label>
+            <label className="block text-sm font-medium text-gray-700">
+              Description
+            </label>
             <input
               type="text"
               placeholder="Enter description"
@@ -108,13 +132,17 @@ const WorkoutForm = () => {
           disabled={isLoading}
           className="bg-black text-white px-4 py-2 rounded-md hover:bg-gray-800 disabled:opacity-50"
         >
-          {isLoading ? 'Saving...' : 'Save Workout'}
+          {isLoading ? "Saving..." : "Save Workout"}
         </button>
       </div>
 
       {/* Feedback Messages */}
-      {isSuccess && <p className="text-green-600 mt-2">Workout updated successfully!</p>}
-      {isError && <p className="text-red-600 mt-2">Failed to update workout.</p>}
+      {isSuccess && (
+        <p className="text-green-600 mt-2">Workout updated successfully!</p>
+      )}
+      {isError && (
+        <p className="text-red-600 mt-2">Failed to update workout.</p>
+      )}
     </div>
   );
 };

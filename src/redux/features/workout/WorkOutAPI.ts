@@ -4,7 +4,7 @@ const WorkOutAPI = baseAPI.injectEndpoints({
   endpoints: (builder) => ({
     getAllWorkOut: builder.query<any, void>({
       query: () => ({
-        url: "/exercise/all",
+        url: "/workout-plan/all-workout-plan",
         method: "GET",
       }),
       providesTags: ["WorkOut"],
@@ -31,10 +31,10 @@ const WorkOutAPI = baseAPI.injectEndpoints({
     }),
 
     updateWorkPlan: builder.mutation({
-      query: (update) => ({
-        url: `/workout-plan/update-workout-plan/${update._id}`,
+      query: ({ id, formData }) => ({
+        url: `/workout-plan/update-workout-plan/${id}`,
         method: "POST",
-        body: update,
+        body: formData, // Send formData directly
       }),
       invalidatesTags: ["WorkOut"],
     }),

@@ -7,7 +7,7 @@ interface WorkoutItem {
   _id: string;
   planName: string;
   description: string;
-  imageUrl: string;
+  image: string;
   totalDays: number;
 }
 
@@ -16,15 +16,18 @@ interface WorkoutCardProps {
 }
 
 export default function WorkoutCard({ workout }: WorkoutCardProps) {
+  const IMAGE = process.env.NEXT_PUBLIC_API_KEY;
+
+  
+
   return (
     <div className="rounded-xl shadow-md p-6">
-      <div className="mt-1.5 mb-3 rounded-lg max-h-[600px]">
+      <div className="mt-1.5 mb-3 rounded-lg ">
         <Image
-          // src={`${IMAGE_URL}/${workout.imageUrl}` || "/workout.jpg"}
-          src={"/workout.jpg"}
-          className="rounded-xl"
+          src={`${IMAGE}/${workout.image}` || "/workout.jpg"}
+          className="rounded-xl h-[300px] w-full object-cover" // Responsive height and full width
           width={700}
-          height={800}
+          height={300} // Adjust the height here for optimal aspect ratio
           alt={workout.planName}
         />
       </div>
@@ -46,11 +49,10 @@ export default function WorkoutCard({ workout }: WorkoutCardProps) {
         </p>
 
         <Link href={`/workout/${workout._id}`}>
-          {" "}
           <div className="flex justify-between gap-6 my-6 min-h-full">
-            <button className="flex-1 text-[#000000] border border-[#000000] hover:bg-[#000000] hover:text-white px-4 py-2 rounded-lg">
+            <button className="flex-1 text-[#000000] border border-[#000000] hover:bg-[#000000] hover:text-white px-6 py-3 rounded-lg transition duration-300 ease-in-out">
               Edit
-            </button>{" "}
+            </button>
           </div>
         </Link>
       </div>
