@@ -1,26 +1,18 @@
-// 'use client'
-// import { useUpdateAppointmentMutation } from '@/redux/features/appointmentPlan/AppointmentPlanAPI'
-// import React from 'react'
 
-// export default function page() {
-// const [updateAppointment] = useUpdateAppointmentMutation()
-//   return (
-//     <div>page</div>
-//   )
-// }
 
-// 'use client';
+// "use client";
 
 // import { useState, useEffect } from "react";
 // import { PlusCircle } from "lucide-react";
-// import { useUpdateAppointmentMutation } from "@/redux/features/appointmentPlan/AppointmentPlanAPI";
 // import { useParams, useRouter } from "next/navigation";
-// import { useWorkPlanDetailsQuery } from "@/redux/features/workout/WorkOutAPI";
+// import { useAppointmentDetailsQuery, useUpdateAppointmentMutation } from "@/redux/features/appointmentPlan/AppointmentPlanAPI";
 
-// export default function AddAppointmentPlan() {
+// export default function updateAppointmentPlan() {
 //   const router = useRouter();
-//   const { id: workoutId } = useParams();
-//   console.log(workoutId);
+//   //   const { id: workoutId } = useParams();
+//   const { id: workoutId } = useParams<{ id: string }>(); // Extract package ID from URL
+
+//   console.log("Workout ID:", workoutId);
 
 //   const [file, setFile] = useState<File | null>(null);
 //   const [previewURL, setPreviewURL] = useState<string | null>(null);
@@ -28,34 +20,34 @@
 //   const [price, setPrice] = useState<number | "">("");
 //   const [descriptions, setDescriptions] = useState<string[]>([""]);
 
-//   const [updateAppointment, { isLoading, isError, isSuccess }] = useUpdateAppointmentMutation();
+//   const [updateAppointment, { isLoading, isError, isSuccess }] =
+//     useUpdateAppointmentMutation();
 
-//   const {data} = useWorkPlanDetailsQuery(undefined)
+//     const { data } = useAppointmentDetailsQuery(workoutId);
+//     console.log(data?.data);
 
-//   // Handle file upload and set file state
+//   // Handle file upload and preview
 //   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-//     if (event.target.files && event.target.files[0]) {
-//       setFile(event.target.files[0]);
+//     const selectedFile = event.target.files?.[0];
+//     if (selectedFile) {
+//       setFile(selectedFile);
+//       setPreviewURL(URL.createObjectURL(selectedFile));
 //     }
 //   };
 
-//   // Create and manage a preview URL for the uploaded file
+//   // Cleanup URL object when file changes
 //   useEffect(() => {
-//     if (!file) {
-//       setPreviewURL(null);
-//       return;
-//     }
-//     const objectUrl = URL.createObjectURL(file);
-//     setPreviewURL(objectUrl);
-//     return () => URL.revokeObjectURL(objectUrl);
-//   }, [file]);
+//     return () => {
+//       if (previewURL) URL.revokeObjectURL(previewURL);
+//     };
+//   }, [previewURL]);
 
-//   // Add a new empty description field
+//   // Add new description field
 //   const addDescriptionField = () => {
 //     setDescriptions((prev) => [...prev, ""]);
 //   };
 
-//   // Update description at the specified index
+//   // Update description value
 //   const handleDescriptionChange = (index: number, value: string) => {
 //     setDescriptions((prev) => {
 //       const updated = [...prev];
@@ -70,33 +62,33 @@
 //       alert("Workout ID is missing!");
 //       return;
 //     }
-
-//     const formData = new FormData();
-
-//     // Build the payload; ensure price is a number (defaulting to 0 if empty)
-//     const payload = {
-//       title,
+//     const data = {
+//       title: title,
 //       description: descriptions,
-//       price: price === "" ? 0 : price,
+//       price: price,
+//       image: file,
 //     };
-//     console.log(payload)
 
-//     // Stringify the payload and append it as "data"
+//     console.log(data + "data");
+//     const formData = new FormData();
+//     const payload = {
+//       title: title,
+//       description: descriptions,
+//       price: price,
+//     };
+
 //     formData.append("data", JSON.stringify(payload));
 
-//     // Append the file if it exists
 //     if (file) {
 //       formData.append("image", file);
 //     }
 
-//     console.log(file)
-
-//     // Debug: Log the JSON payload from formData
-//     console.log("Payload:", formData.get("data"));
+//     console.log("Submitting Payload:", payload);
+//     console.log(file, "image");
 
 //     try {
-//       // Use unwrap() to catch any errors
 //       await updateAppointment({ id: workoutId, body: formData }).unwrap();
+
 //       alert("Appointment Updated Successfully!");
 //     } catch (error) {
 //       console.error("Error updating appointment:", error);
@@ -122,18 +114,20 @@
 //                 className="w-full h-full object-cover rounded-lg"
 //               />
 //             ) : (
-//               <span className="text-gray-400 text-sm">Upload Gif File</span>
+//               <span className="text-gray-400 text-sm">Upload Image</span>
 //             )}
 //             <input
 //               type="file"
 //               id="upload"
-//               accept="image/gif"
+//               accept="image/*"
 //               className="hidden"
 //               onChange={handleFileChange}
 //             />
 //           </label>
 //           <div>
-//             <h2 className="text-lg font-semibold text-gray-700">Workout Name</h2>
+//             <h2 className="text-lg font-semibold text-gray-700">
+//               Workout Name
+//             </h2>
 //             <p className="text-gray-400">Product Description</p>
 //           </div>
 //         </div>
@@ -190,7 +184,9 @@
 //         </div>
 
 //         {isSuccess && (
-//           <p className="text-green-500 mt-2">Appointment updated successfully!</p>
+//           <p className="text-green-500 mt-2">
+//             Appointment updated successfully!
+//           </p>
 //         )}
 //         {isError && (
 //           <p className="text-red-500 mt-2">Error updating appointment.</p>
@@ -200,18 +196,17 @@
 //   );
 // }
 
+
 "use client";
 
 import { useState, useEffect } from "react";
-import { PlusCircle } from "lucide-react";
+import { PlusCircle, XCircle } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { useAppointmentDetailsQuery, useUpdateAppointmentMutation } from "@/redux/features/appointmentPlan/AppointmentPlanAPI";
-import { useWorkPlanDetailsQuery } from "@/redux/features/workout/WorkOutAPI";
 
-export default function updateAppointmentPlan() {
+export default function UpdateAppointmentPlan() {
   const router = useRouter();
-  //   const { id: workoutId } = useParams();
-  const { id: workoutId } = useParams<{ id: string }>(); // Extract package ID from URL
+  const { id: workoutId } = useParams<{ id: string }>();
 
   console.log("Workout ID:", workoutId);
 
@@ -221,11 +216,18 @@ export default function updateAppointmentPlan() {
   const [price, setPrice] = useState<number | "">("");
   const [descriptions, setDescriptions] = useState<string[]>([""]);
 
-  const [updateAppointment, { isLoading, isError, isSuccess }] =
-    useUpdateAppointmentMutation();
+  const { data } = useAppointmentDetailsQuery(workoutId);
+  const [updateAppointment, { isLoading, isError, isSuccess }] = useUpdateAppointmentMutation();
 
-    const { data } = useAppointmentDetailsQuery(undefined);
-    console.log(data?.data);
+  // Populate form fields when data is fetched
+  useEffect(() => {
+    if (data?.data) {
+      setTitle(data.data.title || "");
+      setPrice(data.data.price || "");
+      setDescriptions(data.data.description || [""]);
+      setPreviewURL(data.data.image || null);
+    }
+  }, [data]);
 
   // Handle file upload and preview
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -236,7 +238,6 @@ export default function updateAppointmentPlan() {
     }
   };
 
-  // Cleanup URL object when file changes
   useEffect(() => {
     return () => {
       if (previewURL) URL.revokeObjectURL(previewURL);
@@ -248,6 +249,11 @@ export default function updateAppointmentPlan() {
     setDescriptions((prev) => [...prev, ""]);
   };
 
+  // Remove description field
+  const removeDescriptionField = (index: number) => {
+    setDescriptions((prev) => prev.filter((_, i) => i !== index));
+  };
+
   // Update description value
   const handleDescriptionChange = (index: number, value: string) => {
     setDescriptions((prev) => {
@@ -257,40 +263,26 @@ export default function updateAppointmentPlan() {
     });
   };
 
-  // Handle form submission
   const handleSubmit = async () => {
     if (!workoutId) {
       alert("Workout ID is missing!");
       return;
     }
-    const data = {
-      title: title,
-      description: descriptions,
-      price: price,
-      image: file,
-    };
 
-    console.log(data + "data");
     const formData = new FormData();
-    const payload = {
-      title: title,
-      description: descriptions,
-      price: price,
-    };
+    const payload = { title, description: descriptions, price };
 
     formData.append("data", JSON.stringify(payload));
-
     if (file) {
       formData.append("image", file);
     }
 
     console.log("Submitting Payload:", payload);
-    console.log(file, "image");
-
+    
     try {
-      await updateAppointment({ id: workoutId, body: formData }).unwrap();
-
+      await updateAppointment({ id: workoutId, formData }).unwrap();
       alert("Appointment Updated Successfully!");
+      router.push('/appointment-plan');
     } catch (error) {
       console.error("Error updating appointment:", error);
       alert("Error updating appointment");
@@ -326,10 +318,8 @@ export default function updateAppointmentPlan() {
             />
           </label>
           <div>
-            <h2 className="text-lg font-semibold text-gray-700">
-              Workout Name
-            </h2>
-            <p className="text-gray-400">Product Description</p>
+            <h2 className="text-lg font-semibold text-gray-700">{title || "Workout Name"}</h2>
+            <p className="text-gray-400">{descriptions.join(", ") || "Product Description"}</p>
           </div>
         </div>
 
@@ -345,9 +335,7 @@ export default function updateAppointmentPlan() {
             type="number"
             placeholder="Amount"
             value={price}
-            onChange={(e) =>
-              setPrice(e.target.value ? Number(e.target.value) : "")
-            }
+            onChange={(e) => setPrice(e.target.value ? Number(e.target.value) : "")}
             className="border border-gray-300 p-2 rounded-lg w-full"
           />
         </div>
@@ -363,14 +351,20 @@ export default function updateAppointmentPlan() {
                 onChange={(e) => handleDescriptionChange(index, e.target.value)}
                 className="border border-gray-300 p-2 rounded-lg w-full"
               />
+              {descriptions.length > 1 && (
+                <button onClick={() => removeDescriptionField(index)} className="text-red-500">
+                  <XCircle className="w-5 h-5" />
+                </button>
+              )}
             </div>
           ))}
         </div>
 
         {/* Button to add additional description fields */}
         <div className="mt-2 flex items-center gap-2">
-          <button onClick={addDescriptionField}>
-            <PlusCircle className="text-blue-500" />
+          <button onClick={addDescriptionField} className="flex items-center gap-1 text-blue-500">
+            <PlusCircle className="w-5 h-5" />
+            <span>Add More</span>
           </button>
         </div>
 
@@ -384,14 +378,8 @@ export default function updateAppointmentPlan() {
           </button>
         </div>
 
-        {isSuccess && (
-          <p className="text-green-500 mt-2">
-            Appointment updated successfully!
-          </p>
-        )}
-        {isError && (
-          <p className="text-red-500 mt-2">Error updating appointment.</p>
-        )}
+        {isSuccess && <p className="text-green-500 mt-2">Appointment updated successfully!</p>}
+        {isError && <p className="text-red-500 mt-2">Error updating appointment.</p>}
       </div>
     </div>
   );
