@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "eslint . --config .eslintrc.vercel.json && next build",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },

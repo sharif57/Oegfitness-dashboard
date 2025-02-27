@@ -13,6 +13,7 @@ import {
   CreditCard,
   Settings,
   LogOut,
+  Activity,
 } from "lucide-react";
 import { usePathname } from "next/navigation";
 import Swal from "sweetalert2";
@@ -34,7 +35,7 @@ const navigation = [
   {
     name: "Exercise",
     href: "/exercise",
-    icon: DollarSign,
+    icon: Activity ,
     img: "/sidebar/x.svg",
   },
   {

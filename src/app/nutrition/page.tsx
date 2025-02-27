@@ -33,7 +33,6 @@ export default function NutritionPlan() {
   } = useGetAllNutritionsQuery();
 
   if (isLoading || !nutritionData.data) {
-    console.log("loading .........");
     return <div>Loading...</div>;
   }
 
@@ -41,9 +40,6 @@ export default function NutritionPlan() {
     return <div>Error</div>;
   }
 
-  console.log(nutritionData?.data);
-
-  console.log("Ending .........");
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -52,7 +48,7 @@ export default function NutritionPlan() {
     indexOfLastItem
   );
 
-  const IMAGE_URL = "http://115.127.156.13:3005";
+  const IMAGE_URL = "http://45.55.209.88:3006";
 
   return (
     <div className='min-h-screen bg-gray-50 p-4 md:p-8'>
@@ -77,7 +73,7 @@ export default function NutritionPlan() {
             >
               
               <div className='relative h-64 w-full'>
-                <Image
+                <img
                   src={`${IMAGE_URL}${item?.image}` || "/placeholder.svg"}
                   width={600}
                   height={700}

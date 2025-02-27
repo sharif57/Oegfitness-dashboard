@@ -106,17 +106,14 @@ const Earnings = () => {
   };
 
   const handleCancel = () => {
-    console.log("Clicked cancel button");
     setOpen(false);
   };
 
   const showModalX = (item: ICurrentUser) => {
-    console.log(item);
     setOpen(!open);
     setCurrentUser(item);
   };
 
-  console.log("Earning Data", earnings?.data);
 
   return (
     <div className='flex min-h-screen flex-col bg-gray-50 lg:flex-row'>

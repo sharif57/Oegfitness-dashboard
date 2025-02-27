@@ -40,7 +40,6 @@ const Earnings = () => {
 
   const { data: users, isLoading, isError } = useGetAllUsersQuery();
 
-  console.log(users?.data?.result);
 
   const showModal = (item?: ICurrentUser | null) => {
     setOpen(true);
@@ -58,11 +57,9 @@ const Earnings = () => {
   };
 
   const handleCancel = () => {
-    console.log("Clicked cancel button");
     setOpen(false);
   };
 
-  console.log({ currentUser });
 
   return (
     <>

@@ -74,11 +74,9 @@ export default function ResetPassword() {
         confirmPassword: passwords.confirmPassword,
       };
 
-      console.log(payload);
 
       // Call the resetPassword mutation with the payload
       const response = await resetPassword(payload).unwrap();
-      console.log(response);
 
       if (response.success) {
         toast.success(response.message || "Password reset successfully!");

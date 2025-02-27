@@ -141,7 +141,7 @@ export default function VerifyEmail() {
                     type="text"
                     maxLength={1}
                     value={digit}
-                    ref={(el) => (inputRefs.current[index] = el)}
+                    ref={(el) => {inputRefs.current[index] = el}}
                     onChange={(e) => handleChange(e, index)}
                     onKeyDown={(e) => handleKeyDown(e, index)}
                     className="w-12 h-12 border-2 rounded-lg border-[#345C8C] text-center text-xl font-semibold text-[#345C8C] focus:border-[#284670] focus:outline-none transition-colors"

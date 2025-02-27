@@ -5,7 +5,6 @@ interface MetricCardProps {
 }
 
 export function MetricCard({ title, value, prefix = "$" }: MetricCardProps) {
-  console.log(title, value);
 
   return (
     <div className='border flex flex-col justify-center items-center rounded-lg bg-white p-4 max-w-[381px] py-10'>

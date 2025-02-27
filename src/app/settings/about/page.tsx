@@ -17,7 +17,6 @@ const AboutUs = () => {
 
   // Fetching Privacy Policy content using the query hook
   const { data, isLoading, error } = useAboutGetQuery(undefined);
-  console.log(data);
 
   // Extract description safely
   const privacyDescription: string =
@@ -25,7 +24,6 @@ const AboutUs = () => {
       ? data.data[0].description
       : "No Privacy Policy content available.";
 
-  console.log("Privacy Description:", privacyDescription);
 
   // Handle API errors
   useEffect(() => {

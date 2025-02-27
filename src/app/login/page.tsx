@@ -27,7 +27,6 @@ export default function LoginPage() {
 
   const handleSubmitForm: SubmitHandler<IFormInput> = async (data) => {
     const { email, password } = data;
-    console.log(data);
     try {
       const response = await login({
         email,

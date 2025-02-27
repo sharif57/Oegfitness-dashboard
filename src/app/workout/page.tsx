@@ -24,7 +24,6 @@ export default function WorkoutPlan() {
   // Ensure data exists before slicing
   const workoutList = workouts?.data || [];
 
-  console.log(workoutList);
   const totalWorkouts = workoutList.length;
 
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
@@ -60,7 +59,7 @@ export default function WorkoutPlan() {
         <p className='text-center text-gray-500'>No workouts available.</p>
       ) : (
         <div className='grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3'>
-          {currentWorkouts.map((workout) => (
+          {currentWorkouts.map((workout: any) => (
             <WorkoutCard key={workout.id} workout={workout} />
           ))}
         </div>

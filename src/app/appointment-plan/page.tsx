@@ -41,9 +41,8 @@ export default function AppointmentPlan() {
     }
   };
 
-  const IMAGE_URL = "http://115.127.156.13:3005";
+  const IMAGE_URL = "http://45.55.209.88:3006";
 
-  console.log(appointmentsPlan);
 
   return (
     <div className="min-h-screen bg-gray-50 p-4 md:p-8">
@@ -67,10 +66,9 @@ export default function AppointmentPlan() {
                 className="overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm transition-shadow hover:shadow-md"
               >
                 <div className="relative min-w-full max-w-[632px] h-[336px]">
-                  <Image
+                  <img
                     src={`${IMAGE_URL}${plan.image}` || "/placeholder.svg"}
                     alt={plan.title}
-                    fill
                     className="object-cover min-w-full max-w-[632px] h-[336px]"
                   />
                 </div>

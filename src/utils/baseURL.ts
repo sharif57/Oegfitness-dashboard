@@ -1,3 +1,3 @@
-const baseAPIURL = "http://115.127.156.13:3005/api/v1";
+const baseAPIURL = "http://45.55.209.88:3006/api/v1";
 
 export default baseAPIURL;

@@ -5,8 +5,7 @@ import Image from "next/image";
 import {
   ChevronLeft,
   ChevronRight,
-  MoreVertical,
-  Info,
+
   Plus,
 } from "lucide-react";
 import Container from "@/components/common/Container";
@@ -59,10 +58,8 @@ export default function ExercisePage() {
     return <div>Error</div>;
   }
 
-  console.log(exercisesData?.data);
 
   const IMAGE =process.env.NEXT_PUBLIC_API_KEY
-  console.log(IMAGE)
   return (
     <div className='min-h-screen bg-gray-50 p-4 md:p-6'>
       <Container>
@@ -102,14 +99,14 @@ export default function ExercisePage() {
                   <p className='text-lg text-[#545454]'>
                     {exercise.description}
                   </p>
-                  <div className='flex flex-col gap-2'>
+                  {/* <div className='flex flex-col gap-2'>
                     <button className='rounded-full p-1 hover:bg-gray-100'>
                       <Info className='h-5 w-5 text-[#101010]' />
                     </button>
                     <button className='rounded-full p-1 hover:bg-gray-100'>
                       <MoreVertical className='h-5 w-5 text-[#101010]' />
                     </button>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>

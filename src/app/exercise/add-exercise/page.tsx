@@ -7,8 +7,10 @@ import { ArrowLeft, Upload } from "lucide-react";
 import Container from "@/components/common/Container";
 import { usePostExerciseMutation } from "@/redux/features/exercise/ExerciseAPI";
 import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 export default function AddExercise() {
+  const router = useRouter()
   const [formData, setFormData] = useState({
     exerciseName: "",
     description: "",
@@ -17,7 +19,6 @@ export default function AddExercise() {
     imagePreview: "",
   });
 
-  console.log({ formData });
 
   const [postExercise] = usePostExerciseMutation();
 
@@ -63,6 +64,7 @@ export default function AddExercise() {
 
       if (response.success) {
         toast.success("Exercise added successfully!");
+        router.push('/exercise')
 
         setFormData({
           exerciseName: "",

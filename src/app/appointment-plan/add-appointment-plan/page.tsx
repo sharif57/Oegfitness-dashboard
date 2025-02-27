@@ -70,10 +70,8 @@ export default function AddWorkout() {
   };
 
   const handleDescriptionChange = (index: number, value: string) => {
-    console.log(index, value);
     let newIngredients = [...descriptionList];
     newIngredients[index] = value;
-    console.log({ newIngredients });
     setDescriptionList(newIngredients);
   };
 
@@ -89,7 +87,6 @@ export default function AddWorkout() {
       return;
     }
 
-    console.log(workoutName, price, selectedTimes, descriptionList);
 
     const formDataToSend = new FormData();
 
@@ -118,7 +115,6 @@ export default function AddWorkout() {
         setDescriptionList([""]);
         setImagePreview(null);
 
-        console.log("Workout Created Successfully:", response);
         toast.success("Appointment created successfully!");
       } else {
         throw new Error(response.message || "Something went wrong.");
