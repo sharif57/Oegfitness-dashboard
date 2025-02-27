@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { usePathname } from "next/navigation";
 import Swal from "sweetalert2";
+import { logout } from "@/service/authService";
 
 const navigation = [
   {
@@ -82,36 +83,32 @@ export function Sidebar() {
   if (pathname == "/forgot") return null;
   if (pathname == "/resetotp") return null;
   if (pathname == "/createpass") return null;
-  
 
-
-  const handleLogOut = () => {
-    Swal.fire({
+  const handleLogOut = async () => {
+    const result = await Swal.fire({
       title: "Are you sure?",
       text: "You will be logged out!",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, Logout!"
-    }).then((result) => {
-      if (result.isConfirmed) {
-        // Remove tokens only if confirmed
-        localStorage.removeItem("accessToken");
-        localStorage.removeItem("refreshToken");
-  
-        Swal.fire({
-          title: "Logged Out",
-          text: "You have been logged out successfully.",
-          icon: "success"
-        }).then(() => {
-          // Redirect to login page after confirmation
-          window.location.href = "/login";
-        });
-      }
+      confirmButtonText: "Yes, Logout!",
     });
-  };
 
+    if (result.isConfirmed) {
+      await logout(); // Ensures logout is completed before proceeding
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("refreshToken");
+
+      await Swal.fire({
+        title: "Logged Out",
+        text: "You have been logged out successfully.",
+        icon: "success",
+      });
+
+      window.location.href = "/login"; // Redirect after confirmation
+    }
+  };
 
   return (
     <div className="flex h-full min-h-screen w-64 fixed top-0 left-0 flex-col bg-[#002B5B] text-white">
@@ -144,13 +141,13 @@ export function Sidebar() {
       </nav>
 
       <div className="p-4">
-      <button
-        onClick={handleLogOut}
-        className="w-full flex items-center justify-center gap-3 rounded-lg bg-[#BF0C0A] px-4 py-4 text-sm font-medium text-white hover:bg-red-700"
-      >
-        <LogOut /> Logout
-      </button>
-    </div>
+        <button
+          onClick={handleLogOut}
+          className="w-full flex items-center justify-center gap-3 rounded-lg bg-[#BF0C0A] px-4 py-4 text-sm font-medium text-white hover:bg-red-700"
+        >
+          <LogOut /> Logout
+        </button>
+      </div>
     </div>
   );
 }
