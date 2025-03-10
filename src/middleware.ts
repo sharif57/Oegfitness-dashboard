@@ -22,11 +22,10 @@ export const config = {
   matcher: [
     '/',
     "/earnings",
-    "/exercise",
+    "/exersice",
     "/workout",
     "/nutrition",
     "/appointment-plan",
-    // "/about1",
     "/appointment",
     "/users",
     "/appointment",

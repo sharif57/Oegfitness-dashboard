@@ -47,7 +47,7 @@ type WorkoutDay = {
 // };
 
 export default function Page() {
-  const params = useParams(); // Get the params
+  const params = useParams(); 
   const [workoutId, setWorkoutId] = useState<string | null>(null);
 
   // Use the workoutId to fetch the specific workout plan details

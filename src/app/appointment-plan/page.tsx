@@ -41,7 +41,7 @@ export default function AppointmentPlan() {
     }
   };
 
-  const IMAGE_URL = "http://45.55.209.88:3006";
+  const IMAGE_URL = "http://82.25.91.135:3005";
 
 
   return (

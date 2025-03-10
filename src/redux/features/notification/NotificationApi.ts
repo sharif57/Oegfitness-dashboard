@@ -7,7 +7,7 @@ const NotificationApi = baseAPI.injectEndpoints({
         url: "/notification",
         method: "GET",
       }),
-      providesTags: ["WorkOut"],
+      providesTags: ["Notifications"],
     }),
 
   

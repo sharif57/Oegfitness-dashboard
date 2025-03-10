@@ -8,7 +8,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 
 
 interface IFormInput {
@@ -71,6 +71,7 @@ export default function LoginPage() {
 
   return (
     <div className='flex min-h-screen flex-col md:flex-row lg:-ml-64'>
+      <ToastContainer></ToastContainer>
       {/* Left Section - Image and Logo */}
       <div className='relative w-full h-screen flex flex-1 items-center justify-center bg-black/60'>
         <Image
@@ -99,7 +100,7 @@ export default function LoginPage() {
               </h2>
             </div>
             <p className='text-lg text-[#737163] max-w-[360px] mx-auto text-center'>
-              Please enter your email address to reset your password.
+              Please enter your email and password.
             </p>
           </div>
 

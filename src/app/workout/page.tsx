@@ -19,7 +19,7 @@ const ITEMS_PER_PAGE = 12;
 
 export default function WorkoutPlan() {
   const [currentPage, setCurrentPage] = useState(1);
-  const { data: workouts, isLoading, isError } = useGetAllWorkOutQuery();
+  const { data: workouts, isLoading, isError } = useGetAllWorkOutQuery({ limit: 1000 });
 
   // Ensure data exists before slicing
   const workoutList = workouts?.data || [];

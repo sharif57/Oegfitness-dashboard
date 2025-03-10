@@ -10,7 +10,7 @@ export default function PlanOverview() {
     <div>
       {" "}
       <div className="px-4 ">
-        <div className="relative h-[50vh] md:h-[70vh] lg:h-[calc(100vh-2px)] xl:h-[calc(100vh-600px)]   flex items-center justify-center ">
+        <div className="relative h-[50vh] md:h-[70vh] lg:h-[calc(100vh-2px)] xl:h-[calc(100vh-400px)]   flex items-center justify-center ">
           {/* Background Image with Opacity */}
           <div
             className="absolute inset-0 bg-cover bg-top bg-no-repeat opacity-90 rounded-xl"

@@ -15,7 +15,7 @@ const Header = () => {
   const { data: userProfile } = useUserProfileQuery(undefined);
 
   // Corrected Environment Variable Name & Added Fallback
-  const IMAGE_BASE_URL = process.env.NEXT_PUBLIC_API_KEY || 'http://45.55.209.88:3006';
+  const IMAGE_BASE_URL = process.env.NEXT_PUBLIC_API_KEY || 'http://82.25.91.135:3005';
 
   // Hide header on login & register pages
   if (pathname === '/login' || pathname === '/register') return null;
