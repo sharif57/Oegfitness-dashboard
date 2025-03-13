@@ -48,7 +48,7 @@ export default function NutritionPlan() {
     indexOfLastItem
   );
 
-  const IMAGE_URL = "http://82.25.91.135:3005";
+  const IMAGE_URL = "https://server.oegfitness.com";
 
   return (
     <div className='min-h-screen bg-gray-50 p-4 md:p-8'>

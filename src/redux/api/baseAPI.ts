@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 const baseAPI = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://82.25.91.135:3005/api/v1",
+    baseUrl: "https://server.oegfitness.com/api/v1",
 
     prepareHeaders: (headers) => {
       const token = localStorage.getItem("accessToken");

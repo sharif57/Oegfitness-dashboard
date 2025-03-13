@@ -41,7 +41,7 @@ export default function AppointmentPlan() {
     }
   };
 
-  const IMAGE_URL = "http://82.25.91.135:3005";
+  const IMAGE_URL = "https://server.oegfitness.com";
 
 
   return (
