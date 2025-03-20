@@ -23,11 +23,11 @@ export default function WorkoutCard({ workout }: WorkoutCardProps) {
   return (
     <div className="rounded-xl shadow-md p-6">
       <div className="mt-1.5 mb-3 rounded-lg ">
-        <Image
+        <img
           src={`${IMAGE}/${workout.image}` || "/workout.jpg"}
           className="rounded-xl h-[300px] w-full object-cover" // Responsive height and full width
-          width={700}
-          height={300} // Adjust the height here for optimal aspect ratio
+          // width={700}
+          // height={300} // Adjust the height here for optimal aspect ratio
           alt={workout.planName}
         />
       </div>

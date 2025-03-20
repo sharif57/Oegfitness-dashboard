@@ -70,10 +70,10 @@ const Header = () => {
           {/* User Profile Button */}
           <button className="flex items-center space-x-2 rounded-full bg-blue-900 px-2 py-2.5 lg:px-3">
             {userProfile?.data?.image ? (
-              <Image
+              <img
                 src={`${IMAGE_BASE_URL}${userProfile.data.image}`}
-                width={40}
-                height={40}
+                // width={40}
+                // height={40}
                 alt={userProfile?.data?.name || 'User'}
                 className="h-5 w-5 rounded-full lg:h-6 lg:w-6"
               />

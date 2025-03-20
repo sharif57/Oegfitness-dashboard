@@ -82,13 +82,13 @@ export default function ExercisePage() {
               <h3 className="text-2xl font-bold text-[#000000]">
                 {exercise?.exerciseName}
               </h3>
-              <div className="relative h-[200px] w-full rounded-lg mt-2.5">
-                <Image
+              <div className="relative  w-full rounded-lg mt-2.5">
+                <img
                   // src={exercise?.gifImage || "/workout.jpg"}
                   src={`${IMAGE}${exercise?.gifImage}` || "/workout.jpg"}
                   alt={exercise?.exerciseName}
-                  fill
-                  className="object-cover rounded-lg"
+                  
+                  className="w-full rounded-lg h-[300px] object-cover"
                 />
               </div>
               <div className="p-1 mt-3">
