@@ -5,7 +5,6 @@ import Image from "next/image";
 import {
   LayoutDashboard,
   DollarSign,
-  Dumbbell,
   Apple,
   CalendarDays,
   Calendar,
@@ -38,12 +37,12 @@ const navigation = [
     icon: Activity ,
     img: "/sidebar/x.svg",
   },
-  {
-    name: "Workout Plan",
-    href: "/workout",
-    icon: Dumbbell,
-    img: "/sidebar/x.svg",
-  },
+  // {
+  //   name: "Workout Plan",
+  //   href: "/workout",
+  //   icon: Dumbbell,
+  //   img: "/sidebar/x.svg",
+  // },
   {
     name: "Nutrition Plan",
     href: "/nutrition",
