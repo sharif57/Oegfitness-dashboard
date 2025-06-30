@@ -27,7 +27,7 @@ const baseAPI = createApi({
     "WorkOut",
     "WorkoutPlan",
     "Appointments",
-    'Notifications',
+    "Notifications",
   ],
   endpoints: () => ({}),
 });
