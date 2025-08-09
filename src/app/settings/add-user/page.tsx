@@ -2,7 +2,7 @@
 
 "use client";
 
-import Image from "next/image";
+// import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, Camera } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -14,7 +14,9 @@ export default function ProfilePage() {
 
   const { data, isLoading, error } = useUserProfileQuery();
 
-  const IMAGE =process.env.NEXT_PUBLIC_API_KEY
+  // const IMAGE =process.env.NEXT_PUBLIC_API_KEY
+    const IMAGE = process.env.NEXT_PUBLIC_API_KEY || 'https://server.oegfitness.com';
+
 
 
 
@@ -57,7 +59,7 @@ export default function ProfilePage() {
               <div className='relative mb-4'>
                 <div className='w-[148px] h-[156px] rounded-full border-[5px] border-[#01336F] overflow-hidden relative'>
                   {/* Show uploaded image if available, else show placeholder */}
-                  <Image
+                  <img
                     // src={imagePreview || user?.image || "/user.png"}
                     src={`${IMAGE}${user?.image}`}
                     width={144}

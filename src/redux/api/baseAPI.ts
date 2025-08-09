@@ -4,7 +4,7 @@ const baseAPI = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
     baseUrl: "https://server.oegfitness.com/api/v1",
-    // baseUrl: "http://192.168.10.233:3005/api/v1",
+    // baseUrl: "http://10.10.12.54:3005/api/v1",
 
     prepareHeaders: (headers) => {
       const token = localStorage.getItem("accessToken");
