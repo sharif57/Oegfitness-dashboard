@@ -23,9 +23,11 @@ export default function LoginPage() {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const { register, handleSubmit } = useForm<IFormInput>();
+  const [isLoading, setIsLoading] = useState(false);
   const [login] = useLoginMutation();
 
   const handleSubmitForm: SubmitHandler<IFormInput> = async (data) => {
+    setIsLoading(true);
     const { email, password } = data;
     try {
       const response = await login({
@@ -44,8 +46,9 @@ export default function LoginPage() {
         });
 
         setTimeout(() => {
-          router.push("/");
+          window.location.href = ("/");
         }, 1500);
+        // setIsLoading(false);
       } else {
         toast.error(response.message || "Invalid credentials!");
       }
@@ -151,9 +154,10 @@ export default function LoginPage() {
 
             <button
               type='submit'
+              disabled={isLoading}
               className='w-full rounded-full text-lg font-medium bg-blue-900 px-6 py-3 text-[#FFFFFF] transition-colors hover:bg-blue-800'
             >
-              Sign In
+              {isLoading ? "Loading..." : "Sign In"}
             </button>
 
          
